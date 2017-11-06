@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { Company } from '../../shared/sdk/models/index';
 import { CompanyApi, SystemUserApi } from '../../shared/sdk/services/index';
@@ -50,7 +50,6 @@ export class NavbarComponent implements OnInit {
 
     logout(){
         this.user.logout().subscribe((res) => {
-            console.log(res);
             this.router.navigate(['login'])
         });
     }

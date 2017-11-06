@@ -25,7 +25,7 @@
     "@angular/http": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
-    "@angular/router": "^4.0.0",
+    "@angular/router": "^4.3.3",
     "@angular/animations": "^4.3.3",
     "moment-mini": "^2.18.1",
     "mydatepicker": "^2.0.27",

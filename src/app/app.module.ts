@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, BrowserXhr } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,7 +35,10 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     NgProgressModule
   ],
-  providers: [{ provide: BrowserXhr, useClass: NgProgressBrowserXhr }],
+  providers: [{ provide: BrowserXhr, useClass: NgProgressBrowserXhr },{
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

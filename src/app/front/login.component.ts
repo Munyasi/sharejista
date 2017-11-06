@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
             password: this.password
         })
             .subscribe((res) => {
-                 this.toastr.success('Logged in successfully...', 'Success');
+                 this.toastr.success('Logged in successfully, Redirecting ...', 'Success');
                     setTimeout( () => {
                         this.router.navigate(['en/dashboard']);
                     }, 1000);
