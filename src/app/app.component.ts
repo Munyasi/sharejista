@@ -1,5 +1,7 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { LoopBackConfig } from './back/shared/sdk/index';
+import { BASE_URL, API_VERSION } from './back/shared/base.url';
 import {ToastOptions} from 'ng2-toastr';
 
 export class CustomOption extends ToastOptions {
@@ -19,6 +21,8 @@ declare var $:any;
 })
 export class AppComponent {
   constructor(private toastr: ToastsManager, vRef: ViewContainerRef){
+    LoopBackConfig.setBaseURL(BASE_URL);
+    LoopBackConfig.setApiVersion(API_VERSION);
     this.toastr.setRootViewContainerRef(vRef);
   }
 }
