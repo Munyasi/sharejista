@@ -35,10 +35,10 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     NgProgressModule
   ],
-  providers: [{ provide: BrowserXhr, useClass: NgProgressBrowserXhr },{
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy
-  }],
+  providers: [
+      { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
+      {provide: LocationStrategy, useClass: HashLocationStrategy}
+      ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

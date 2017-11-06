@@ -4,15 +4,19 @@ import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { Company } from '../../shared/sdk/models/index';
 import { CompanyApi, SystemUserApi } from '../../shared/sdk/services/index';
+import {StorageBrowser} from '../../shared/sdk/index';
 import {skip} from 'rxjs/operator/skip';
 
 @Component({
     selector: 'app-navbar-cmp',
     templateUrl: 'navbar.component.html',
-    providers: [CompanyApi, SystemUserApi]
+    providers: [CompanyApi, SystemUserApi, StorageBrowser]
 })
 
 export class NavbarComponent implements OnInit {
+    company_name: string;
+    company_id: number;
+
     location: Location;
 
     companyList: Company[];
@@ -20,11 +24,14 @@ export class NavbarComponent implements OnInit {
     totalItems = 5;
     skip = 0;
 
-    constructor(private router: Router, location: Location, private companyApi: CompanyApi, private user: SystemUserApi) {
+    constructor(private router: Router, location: Location, private companyApi: CompanyApi, private user: SystemUserApi,  private storageBrowser: StorageBrowser) {
         this.location = location;
         this.getCompanies();
     }
     ngOnInit() {
+        let name = this.storageBrowser.get("company_name");
+        let initials = name.match(/\b\w/g) || [];
+        initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
        this.searchInputChange();
     }
 
