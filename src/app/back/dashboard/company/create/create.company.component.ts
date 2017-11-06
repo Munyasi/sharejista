@@ -11,7 +11,6 @@ import {CompanyApi, CompanyTypeApi, ShareTypeApi,CompanyShareApi} from '../../..
 
 @Component({
     selector: 'company-create-cmp',
-    moduleId: module.id,
     styleUrls: ['create.company.component.css'],
     templateUrl: 'create.company.component.html',
     providers: [CompanyApi, CompanyTypeApi, ShareTypeApi,CompanyShareApi,DayMonthService]
