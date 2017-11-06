@@ -1,0 +1,49 @@
+<div class="companyslist">
+    <div class="card">
+        <div class="card-header" data-background-color="red">
+            <h4 class="title">Current Companies List</h4>
+        </div>
+        <div class="card-content table-responsive table-full-width">
+            <div class="row">
+               <div class="col-md-2">
+                   <form>
+                       <input type="text" class="form-control search-input"
+                              [formControl]="term" placeholder="Search companies...">
+                   </form>
+                </div>
+                <div class="col-md-1">
+                    <img src="assets/img/rolling.gif" class="search-spinner" *ngIf="searching">
+                </div>
+            </div>
+
+            <table class="table">
+                <thead class="text-danger">
+                <tr>
+                    <th>Company Name</th>
+                    <th>Company Reg No</th>
+                    <th>Company Type</th>
+                    <th>Accounts Ref Date</th>
+                    <th>Annual Return Date</th>
+                    <th>Actions</th>
+                </tr>
+                <tbody>
+                    <tr *ngFor="let company of companies |  paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }" class="company-list-row" (click)="selectCompany(company.id)">
+                        <td><b>{{company.company_name}}</b></td>
+                        <td>{{company.registration_no}}</td>
+                        <td>{{company.CompanyType.name}}</td>
+                        <td>{{getDay(company.accounting_reference_day)}},&nbsp;{{months[(company.accounting_reference_month)-1]}}</td>
+                        <td>{{getDay(company.annual_return_day)}},&nbsp;{{months[(company.annual_return_month)-1]}}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="#/en/dashboard/{{company.id}}/home">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-container">
+            <pagination-controls  class="my-pagination" (pageChange)="pageChanged($event)"
+                                 previousLabel="Prev" nextLabel="Next">
+            </pagination-controls>
+        </div>
+    </div>
+</div>

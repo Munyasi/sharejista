@@ -1,0 +1,91 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">{{company_name}}</h4>
+                <p>Share Allotments</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <div class="row">
+                    <div class="col-md-2">
+                        <form>
+                            <input type="text" class="form-control search-input"
+                                   [formControl]="term" placeholder="Search share allotments...">
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+                        <img src="../../../../assets/img/rolling.gif" class="search-spinner" *ngIf="searching">
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="text-danger">
+                    <tr *ngIf="shareTransfers?.length > 0">
+                        <th>From </th>
+                        <th>To</th>
+                        <th>Type of shares</th>
+                        <th>Number of Shares</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let st of shareTransfers | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+                        <td>{{st.transferer_type=='company'?'Current Company':st.transferer.name}}</td>
+                        <td>{{st.transferee.name }}</td>
+                        <td>{{st.sharetype.name}}</td>
+                        <td>{{st.number_of_shares}}</td>
+                        <td>
+                            <span class="label label-active share-status" *ngIf="st.approved">Approved</span>
+                            <span class="label label-inactive share-status" *ngIf="!st.approved">Pending</span>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    Action
+                                    &nbsp;<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu menu-extended">
+                                    <li><a class="pointer" (click)="approveTransfer(st.id,st.transferer_type,1)" >Approve</a></li>
+                                    <li><a class="pointer" (click)="approveTransfer(st.id,st.transferer_type,0)" >Reject</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="shareTransfers?.length < 1">
+                        <td colspan="6" class="empty-list-td">
+                            <p>Currently there are no pending share allotments for your company</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+                    <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
+                                         previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/shareallotment" class="btn btn-primary cp-action-btn">
+                                Allot shares
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

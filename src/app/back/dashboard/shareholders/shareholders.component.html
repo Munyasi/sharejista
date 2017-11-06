@@ -1,0 +1,148 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">{{company_name}}</h4>
+                <p>Shareholders</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <div class="row">
+                    <div class="col-md-2">
+                        <form>
+                            <input type="text" class="form-control search-input"
+                                   [formControl]="term" placeholder="Search shareholders...">
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+                        <img src="../../../../assets/img/rolling.gif" class="search-spinner" *ngIf="searching">
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="text-danger">
+                    <tr *ngIf="shareholders?.length > 0">
+                        <th>Name</th>
+                        <th>Email Address</th>
+                        <th>Phone Number</th>
+                        <th>Postal Address</th>
+                        <th>Appointment Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let sh of shareholders | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }" >
+                        <td>{{sh.name}}</td>
+                        <td>{{sh.email_address}}</td>
+                        <td>{{sh.phone_number}}</td>
+                        <td>P.O Box {{sh.box}}-{{sh.postal_code}}&nbsp;{{sh.town}}</td>
+                        <td>{{sh.appointment_date | date}}</td>
+                        <td>
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    Edit
+                                    &nbsp;<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu menu-extended">
+                                    <li><a routerLink="/en/shareholders/{{sh.id}}">View shareholder</a></li>
+                                    <li><a routerLink="/en/shareholders/{{sh.id}}/edit">Edit shareholder</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="shareholders?.length < 1">
+                        <td colspan="6" class="empty-list-td">
+                            <p>Currently there are no shareholders added to the system for your company</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+                    <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
+                                         previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/shareholders/add" class="btn btn-primary cp-action-btn">
+                                Add new shareholder
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn" (click)="goToDownloadList()">Download shareholders list</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn">
+                                View transactions
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn">
+                                Maintain share certificates
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn">
+                                Share reorganisation
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn">
+                                View company registers
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr20forms" class="btn btn-primary cp-action-btn">
+                                View CR20 forms
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr20forms/generate" class="btn btn-primary cp-action-btn">
+                                Generate CR20 form
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button (click)="downloadMSLedger()" class="btn btn-primary cp-action-btn">
+                                Download shares ledger
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

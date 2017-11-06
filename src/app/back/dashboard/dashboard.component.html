@@ -1,0 +1,53 @@
+<div class="card card-nav-tabs">
+    <div class="card-header" data-background-color="purple">
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs">
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/home'}">
+                        <a routerLink="/en/dashboard/home">
+                            Dashboard
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/company'}">
+                        <a routerLink="/en/dashboard/company">
+                            Company
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/officers'}">
+                        <a routerLink="/en/dashboard/officers">
+                            Officers
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/shareholders'}">
+                        <a routerLink="/en/dashboard/shareholders">
+                            Shareholders
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/shareclasses'}">
+                        <a routerLink="/en/dashboard/shareclasses" >
+                            Share Classes
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/shareallotments'}">
+                        <a routerLink="/en/dashboard/shareallotments" >
+                            Share Allotments
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li [ngClass]="{active: currentUrl=='/en/dashboard/sharetransfers'}">
+                        <a routerLink="/en/dashboard/sharetransfers" >
+                            Share Transfers
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,109 @@
+<div class="wizard">
+    <div class="card-header" data-background-color="purple">
+        Create/Add new share class
+    </div>
+    <div class="card-content">
+        <div class="col-md-9">
+            <div class="row">
+                <!--<div class="col-md-3 col-sm-4 col-xs-8">
+                    <div class="wizard-side-nav">
+                    </div>
+                </div>-->
+                <div class="col-md-12 col-sm-11 col-xs-11">
+                    <div class="wizard-form-table">
+                        <div class="card">
+                            <form #shareClassForm="ngForm" (ngSubmit)="createOrUpdate()">
+                                <div class="card-header actions-card-header text-center" data-background-color="red">
+                                    <h4 class="title">{{company_name}}</h4>
+                                    <p>Enter share class details</p>
+                                </div>
+                                <div class="card-content">
+                                    <span>*&nbsp;Required field</span>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group label-static">
+                                                <label for="surname" class="control-label" ngClass="{has-errors: surname.errors }">Share class name *</label>
+                                                <input id="surname" type="text" class="form-control"
+                                                       name="name" required
+                                                       [(ngModel)]="sharetype.name" #name="ngModel">
+                                                <div *ngIf="name.errors && (name.dirty || name.touched)">
+                                                    <label  [hidden]="!name.errors.required" class="label error-message">Share class name is required</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group label-static">
+                                                <label for="par_value" class="control-label" ngClass="{has-errors: par_value.errors }">Par value</label>
+                                                <input id="par_value" type="text" class="form-control"
+                                                       name="par_value" readonly="readonly"
+                                                       [ngModel]="sharetype.par_value">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group label-static">
+                                                <label for="transferable" class="control-label" ngClass="{has-errors: transferable.errors }">Share class transferable *</label>
+                                                <select id="transferable" class="form-control"
+                                                        name="transferable" required
+                                                        [(ngModel)]="sharetype.transferrable" #transferable="ngModel">
+                                                    <option value="">Select option</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                                <div *ngIf="transferable.errors && (transferable.dirty || transferable.touched)">
+                                                    <label  [hidden]="!transferable.errors.required" class="label error-message">Transferable is required</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group label-static">
+                                                <label for="desc" class="control-label" ngClass="{has-errors: desc.errors }">Share class description *</label>
+                                                <textarea id="desc" type="text" class="form-control"
+                                                          name="description" required
+                                                          placeholder="Share class description"
+                                                          [(ngModel)]="sharetype.description" #desc="ngModel">
+                                                    </textarea>
+                                                <div *ngIf="desc.errors && (desc.dirty || desc.touched)">
+                                                    <label  [hidden]="!desc.errors.required" class="label error-message">Share class description is required</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-save" [disabled]="!shareClassForm.valid">
+                                        Save
+                                        &nbsp;<i class="material-icons">save</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header actions-card-header" data-background-color="red">
+                    <h4 class="title text-center">Actions</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table cp-action-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a routerLink="/en/dashboard/shareclasses" class="btn btn-primary cp-action-btn text-center">
+                                    Return to share classes list
+                                    <!--<i class="material-icons">arrow_backward</i>-->
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

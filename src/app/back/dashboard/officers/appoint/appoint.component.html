@@ -1,0 +1,57 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <form #appointForm="ngForm" class="form-horizontal" (ngSubmit)="appoint()">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Appoint {{person.salutation}} {{person.surname}} {{person.other_names}} as Secretary</h4>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group label-static">
+                                <label for="from" class="control-label"
+                                       ngClass="{has-errors: app_date.errors }">Date of appointment *</label>
+                                <my-date-picker id="from" name="appointment_date" class=""
+                                                [options]="myDatePickerOptions"
+                                                [selDate]="selDate"
+                                                (dateChanged)="onToDateChanged($event)"
+                                                [(ngModel)]="date.app_date" required #app_date="ngModel">
+                                </my-date-picker>
+                                <div *ngIf="app_date.errors && (app_date.dirty || app_date.touched)">
+                                    <label [hidden]="!app_date.errors.required"
+                                           class="label error-message">Date of appointment is required</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button [disabled]="!appointForm.valid" type="submit" class="btn btn-next">
+                        Appoint
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/officers" class="btn btn-primary cp-action-btn">
+                                Go to CR7 officer's list
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

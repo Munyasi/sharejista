@@ -1,0 +1,262 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-8">
+                <div class="wizard-side-nav">
+                    <ul class="nav nav-pills nav-pills-info nav-stacked">
+                        <li [ngClass]="{'active':tab_num=='tab1'}" (click)="showTab(1)">
+                            <a href="#tab1" data-toggle="tab" aria-expanded="true">
+                            General
+                        </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab2'}" (click)="showTab(2)">
+                            <a href="#tab2" data-toggle="tab" aria-expanded="false">
+                            Calender dates
+                            </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab3'}" (click)="showTab(3)">
+                            <a href="#tab3" data-toggle="tab" aria-expanded="false">
+                                Share capital
+                            </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab4'}" (click)="showTab(4)">
+                            <a href="#tab4" data-toggle="tab" aria-expanded="false">
+                                Address
+                            </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab5'}" (click)="showTab(5)">
+                            <a href="#tab5" data-toggle="tab" aria-expanded="false">
+                                Filing details
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-8">
+                <div class="wizard-form-table">
+                    <div class="card">
+                        <div class="card-header actions-card-header text-center" data-background-color="red">
+                            <h4 class="title">{{company.company_name}}</h4>
+                            <p>Company information</p>
+                        </div>
+                        <div class="card-content">
+                            <ul class="ul-company tab1" *ngIf="tab_num=='tab1'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Company type
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{companyType.name}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Registration No
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.registration_no}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Email Address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.email_address}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Phone number(s)
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.phone_numbers}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Average turn over(KES)
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.avg_turn_over|number:'1.2-2'}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Primary business activity
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.primary_activity}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="ul-company tab2" *ngIf="tab_num=='tab2'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Date of incorporation
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.incorporation_date|date}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Accounting reference date
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{accounting_reference_date}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Annual return date
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{annual_return_date}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="ul-company tab3" *ngIf="tab_num=='tab3'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Company type
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{companyType.name}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Nominal/Authorized share capital(KES)
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.nominal_share_capital | number:'1.2-2'}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <table class="share-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Share Type</th>
+                                                <th>Par value(KES)</th>
+                                                <th>Unissued Shares</th>
+                                                <th>Total Shares</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sh of shares;let i = index;">
+                                                <td>{{sh.type_name}}</td>
+                                                <td>{{sh.par_value| number:'1.2-2'}}</td>
+                                                <td>{{sh.unissued_shares|number}}</td>
+                                                <td>{{sh.share_number|number}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
+                            <ul class="ul-company tab4" *ngIf="tab_num=='tab4'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Registered office Address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.ro_land_reference_no}}<br>
+                                            {{company.ro_building_estate}} <br>
+                                            {{company.ro_road_street}} <br>
+                                            {{company.ro_postal_code}}-{{company.ro_postal_address}} {{company.ro_town_city}}<br>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-6">
+                                            Other Address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{company.o_land_reference_no}}<br>
+                                            {{company.o_building_estate}} <br>
+                                            {{company.o_road_street}} <br>
+                                            {{company.o_postal_code}}-{{company.o_postal_address}} {{company.o_town_city}}<br>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="ul-company tab5" *ngIf="tab_num=='tab5'">
+                                <li class="ul-item">
+                                    <p>
+                                        Currently there are no filling details
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header actions-card-header" data-background-color="red">
+                <h4 class="title text-center">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/company/{{company.id}}/update" class="btn btn-primary cp-action-btn text-center">
+                                Edit company information
+                            </a>
+                            <a routerLink="/en/dashboard/annual_returns" class="btn btn-primary cp-action-btn text-center">
+                                View annual returns
+                            </a>
+                            <a routerLink="/en/dashboard/annual_returns/generate" class="btn btn-primary cp-action-btn text-center">
+                                Generate annual return
+                            </a>
+                            <button class="btn btn-primary cp-action-btn text-center">
+                                Update meeting dates
+                            </button>
+                            <button class="btn btn-primary cp-action-btn text-center">
+                                Update company admin
+                            </button>
+                            <button class="btn btn-primary cp-action-btn text-center">
+                                Update company documents
+                            </button>
+                            <button class="btn btn-primary cp-action-btn text-center">
+                                Edit filling details
+                            </button>
+                            <button class="btn btn-primary cp-action-btn text-center">
+                                Give third party access
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <form #generateForm="ngForm" class="form-horizontal" (ngSubmit)="generate()">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Generate CR8 form for {{companyName}}</h4>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group label-static">
+                                <label for="from" class="control-label"
+                                       ngClass="{has-errors: from.errors }">Include residential changes from *</label>
+                                <my-date-picker id="from" name="from" class=""
+                                                [options]="myDatePickerOptions"
+                                                (dateChanged)="onFromDateChanged($event)"
+                                                [(ngModel)]="cr8Config.from" required #from="ngModel">
+                                </my-date-picker>
+                                <div *ngIf="from.errors && (from.dirty || from.touched)">
+                                    <label [hidden]="!from.errors.required"
+                                           class="label error-message">From date is required</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1">
+                            <div class="form-group label-static">
+                                <label for="to" class="control-label"
+                                       ngClass="{has-errors: to.errors }">Include residential changes to *</label>
+                                    <my-date-picker id="to" name="to" class=""
+                                                    [options]="toDateOptions"
+                                                    (dateChanged)="onToDateChanged($event)"
+                                                    [(ngModel)]="cr8Config.to" required #to="ngModel">
+                                    </my-date-picker>
+                                <div *ngIf="to.errors && (to.dirty || to.touched)">
+                                    <label [hidden]="!to.errors.required"
+                                           class="label error-message">To date is required</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table" *ngIf="files.length > 0">
+                            <thead class="text-danger">
+                            <tr>
+                                <th>File name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let file of files">
+                                <td>{{file}}</td>
+                                <td>
+                                    <a (click)="download(file)" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        Download
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button [disabled]="!generateForm.valid || files.length > 0" type="submit" class="btn btn-next">
+                        Submit
+                        <i class="material-icons">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr8forms" class="btn btn-primary cp-action-btn">
+                                Go to CR8 forms list
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

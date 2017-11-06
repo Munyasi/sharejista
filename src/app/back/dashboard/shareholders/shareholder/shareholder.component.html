@@ -1,0 +1,177 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-8">
+                <div class="wizard-side-nav">
+                    <ul class="nav nav-pills nav-pills-info nav-stacked">
+                        <li [ngClass]="{'active':tab_num=='tab1'}" (click)="showTab(1)">
+                            <a href="#tab1" data-toggle="tab" aria-expanded="true">
+                                Shareholder details
+                            </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab2'}" (click)="showTab(2)">
+                            <a href="#tab2" data-toggle="tab" aria-expanded="false">
+                                Shares
+                            </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab3'}" (click)="showTab(3)">
+                            <a href="#tab3" data-toggle="tab" aria-expanded="false">
+                                Allotments & Transfers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-8">
+                <div class="wizard-form-table">
+                    <div class="card">
+                        <div class="card-header actions-card-header text-center" data-background-color="red">
+                            <h4 class="title">{{company_name}}</h4>
+                            <span>{{shareholder.name}}</span>
+                        </div>
+                        <div class="card-content">
+                            <ul class="ul-company tab1" *ngIf="tab_num=='tab1'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Name
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.name}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Email address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.email_address}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Phone number
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.phone_number}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Type
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.type}}
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Date joined
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.appointment_date | date:'yMMMd'}}
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            P.O Box {{shareholder.postal_code}} - {{shareholder.box}}, <br>
+                                            {{shareholder.town}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="ul-company tab2" *ngIf="tab_num=='tab2'">
+                                <li class="ul-item" *ngFor="let shareType of shareholder['shares_totals']">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            {{shareType['share_type']}}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareType['total_shares']|number}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="row empty-list-td" *ngIf="shareholder['shares_totals']?.length < 1">
+                                    <p>This shareholder has <b>0</b> shares in all available share classes.</p>
+                                </div>
+                            </ul>
+
+                            <div class="ul-company tab3" *ngIf="tab_num=='tab3'">
+                                <table class="table">
+                                    <thead class="text-danger">
+                                    <tr *ngIf="shareholder['transfers']?.length > 0">
+                                        <th>Transaction partner</th>
+                                        <th>Transaction type</th>
+                                        <th>Type of shares</th>
+                                        <th>Number of Shares</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let st of transfers | paginate: { itemsPerPage: transfersPerPage, currentPage: p, totalItems: totalTransfers }">
+                                        <td *ngIf="st.transferer_type=='company'">Current Company</td>
+                                        <td *ngIf="st.transferer_type=='company'">Allotment</td>
+                                        <td *ngIf="st.transferer_type!='company'">{{st.transferee.name}}</td>
+                                        <td *ngIf="st.transferer_type!='company'">Transfer</td>
+                                        <td>{{st.sharetype.name}}</td>
+                                        <td *ngIf="st.transferer_type=='company'">+{{st.number_of_shares|number}}</td>
+                                        <td *ngIf="st.transferer_type!='company'">{{(shareholder.id!=st.transferer_id)?'+':'-'}}{{st.number_of_shares|number}}</td>
+                                    </tr>
+                                    <tr *ngIf="shareholder['transfers']?.length < 1">
+                                        <td colspan="6" class="empty-list-td">
+                                            <p>No share allotments/transfers available for this shareholder.</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination-container">
+                                    <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
+                                                         previousLabel="Prev" nextLabel="Next">
+                                    </pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header actions-card-header" data-background-color="red">
+                <h4 class="title text-center">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/shareholders/{{shareholder.id}}/edit" class="btn btn-primary cp-action-btn text-center">
+                                Edit shareholder information
+                            </a>
+                            <a class="btn btn-primary cp-action-btn text-center" href="javascript:void(0)" (click)="downloadMLedger(shareholder.id)">Download shares ledger</a>
+                            <a routerLink="/en/dashboard/shareholders" class="btn btn-primary cp-action-btn text-center">
+                                Return to shareholders' list
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

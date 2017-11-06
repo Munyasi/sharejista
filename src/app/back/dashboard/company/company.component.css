@@ -1,0 +1,14 @@
+.card [data-background-color="purple"] {
+    background: linear-gradient(60deg, #553a75, #825fab);
+    box-shadow: 0 12px 20px -10px rgba(148, 98, 156, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(123, 75, 132, 0.2);
+}
+.cp-action-btn{
+    width: 100%;
+    background: #624584;
+    text-align: left;
+}
+
+.cp-action-btn:hover{
+    background: #7958a0;
+    box-shadow: 0 14px 26px -12px rgb(98, 69, 132), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgb(98, 69, 132);
+}

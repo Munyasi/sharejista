@@ -1,0 +1,11 @@
+.check-alert{
+    color: #ff9800;
+}
+
+.company-list-row{
+    cursor: pointer;
+}
+
+.company-list-row:hover{
+    background-color: #e3e3e3;
+}

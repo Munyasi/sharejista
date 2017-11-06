@@ -1,0 +1,62 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">{{company_name}}</h4>
+                <p>Share classes</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-danger">
+                    <tr *ngIf="shareClasses?.length > 0">
+                        <th>Name</th>
+                        <th>Par Value</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let sc of shareClasses">
+                        <td>{{sc.name}}</td>
+                        <td>{{sc.par_value}}</td>
+                        <td>{{sc.description}}</td>
+                        <td>
+                            <a routerLink="/en/shareclasses/{{sc.id}}/edit" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                    <tr *ngIf="shareClasses?.length < 1">
+                        <td colspan="6" class="empty-list-td">
+                            <p>Currently there are no share classes added to the system for your company</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/shareclasses/add" class="btn btn-primary cp-action-btn">
+                                Add new share class
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

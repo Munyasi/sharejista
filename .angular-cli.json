@@ -19,9 +19,17 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "./assets/css/bootstrap.min.css",
+        "./assets/css/google-font-roboto-material-icons.css",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
+        "./assets/css/font-awesome.min.css",
+        "./assets/css/styles.css",
+        "./styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "./assets/js/jquery-3.1.0.min.js",
+        "./assets/js/bootstrap.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

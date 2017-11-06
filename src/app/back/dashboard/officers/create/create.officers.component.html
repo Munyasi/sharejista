@@ -1,0 +1,470 @@
+<div class="wizard">
+    <div class="card-header" data-background-color="purple">
+        {{update?'Edit/ '+person.other_names+' '+person.surname:'Create/Add new officer'}}
+    </div>
+    <div class="card-content">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-8">
+                    <div class="wizard-side-nav">
+                        <ul class="nav nav-pills nav-pills-info nav-stacked">
+                            <li [ngClass]="{'active':tab_num=='tab1'}" (click)="showTab(1)">
+                                <a href="#tab1" data-toggle="tab" aria-expanded="true">Personal details</a>
+                            </li>
+                            <li [ngClass]="{'active':tab_num=='tab2'}" (click)="showTab(2)">
+                                <a href="#tab2" data-toggle="tab" aria-expanded="true">Residential details</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-8 col-xs-8">
+                    <div class="wizard-form-table">
+                        <div class="card">
+                            <form #personForm="ngForm" (ngSubmit)="createOrUpdate()">
+                                <div class="card-header actions-card-header text-center" data-background-color="red">
+                                    <h4 class="title">{{company_name}}</h4>
+                                    <p>{{update?'Edit':'Enter'}} officer details</p>
+                                </div>
+                                <div class="card-content">
+                                    <span>*&nbsp;Required field</span>
+                                    <div class="tab1" *ngIf="tab_num=='tab1'">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: salutation.errors }">
+                                                    <label class="control-label">Title *</label>
+                                                    <input id="salutation" type="text" class="form-control"
+                                                           placeholder="e.g Mr., Rev., Dr."
+                                                           name="salutation" required
+                                                           [(ngModel)]="person.salutation" #salutation="ngModel">
+                                                    <div *ngIf="salutation.errors && (salutation.dirty || salutation.touched)">
+                                                        <label [hidden]="!salutation.errors.required"
+                                                               class="label error-message">Title is required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static">
+                                                    <label for="surname" class="control-label"
+                                                           ngClass="{has-errors: surname.errors }">Surname *</label>
+                                                    <input id="surname" type="text" class="form-control"
+                                                           placeholder="Officer's surname"
+                                                           name="surname" required
+                                                           [(ngModel)]="person.surname" #surname="ngModel">
+                                                    <div *ngIf="surname.errors && (surname.dirty || surname.touched)">
+                                                        <label [hidden]="!surname.errors.required"
+                                                               class="label error-message">Surname is required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: other_names.errors }">
+                                                    <label for="other_names" class="control-label">Other names *</label>
+                                                    <input id="other_names" type="text" class="form-control"
+                                                           name="other_names" required
+                                                           [(ngModel)]="person.other_names" #other_names="ngModel">
+                                                    <div *ngIf="other_names.errors && (other_names.dirty || other_names.touched)">
+                                                        <label [hidden]="!other_names.errors.required"
+                                                               class="label error-message">Other names are
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: former_names.errors }">
+                                                    <label for="former_names" class="control-label">Former names</label>
+                                                    <input id="former_names" type="text" class="form-control"
+                                                           name="former_names"
+                                                           [(ngModel)]="person.former_names" #former_names="ngModel">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: nationality.errors }">
+                                                    <label for="nationality" class="control-label">Nationality
+                                                        *</label>
+                                                    <select id="nationality" type="text" class="form-control"
+                                                            name="nationality"
+                                                            [(ngModel)]="person.nationality" required #nationality="ngModel">
+                                                        <option value="">Select </option>
+                                                        <option *ngFor="let country of countries" value="{{country.nationality}}">{{country.nationality}}</option>
+                                                    </select>
+
+                                                    <div *ngIf="nationality.errors && (nationality.dirty || nationality.touched)">
+                                                        <label [hidden]="!nationality.errors.required"
+                                                               class="label error-message">Nationality is a
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: approved.errors }">
+                                                    <label for="approved" class="control-label">Approved
+                                                        *</label>
+                                                    <select id="approved" type="text" class="form-control"
+                                                            name="approved"
+                                                            [(ngModel)]="person.consent" required #approved="ngModel">
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+
+                                                    <div *ngIf="approved.errors && (approved.dirty || approved.touched)">
+                                                        <label [hidden]="!approved.errors.required"
+                                                               class="label error-message">Approval is a
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: email_address.errors }">
+                                                    <label for="email_address" class="control-label">Email address
+                                                        *</label>
+                                                    <input id="email_address" type="email" class="form-control"
+                                                           name="email_address" required
+                                                           [(ngModel)]="person.email_address" #email_address="ngModel">
+                                                    <div *ngIf="email_address.errors && (email_address.dirty || email_address.touched)">
+                                                        <label [hidden]="!email_address.errors.required"
+                                                               class="label error-message">Email address is a
+                                                            required</label>
+                                                        <label [hidden]="!email_address.errors.email"
+                                                               class="label error-message">Invalid email address</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: area_code.errors }">
+                                                    <label for="area_code" class="control-label">Area Code*</label>
+                                                    <select id="area_code" type="text" class="form-control"
+                                                            name="area_code"
+                                                            [(ngModel)]="person.area_code" required #area_code="ngModel">
+                                                        <option value="">Select </option>
+                                                        <option *ngFor="let country of countries| orderBy:'dial_code':false" value="{{country.dial_code}}">{{country.dial_code}}</option>
+                                                    </select>
+
+                                                    <div *ngIf="area_code.errors && (area_code.dirty || area_code.touched)">
+                                                        <label [hidden]="!area_code.errors.required"
+                                                               class="label error-message">Area code is
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: phone_number.errors }">
+                                                    <label for="phone_number" class="control-label">Phone number
+                                                        *</label>
+                                                    <input id="phone_number" type="text" class="form-control"
+                                                           name="phone_number" required
+                                                           [(ngModel)]="person.phone_number" #phone_number="ngModel">
+                                                    <div *ngIf="phone_number.errors && (phone_number.dirty || phone_number.touched)">
+                                                        <label [hidden]="!phone_number.errors.required"
+                                                               class="label error-message">Phone number is a
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: id_type.errors }">
+                                                    <label for="id_type" class="control-label">ID Type *</label>
+                                                    <select id="id_type" type="text" class="form-control"
+                                                            name="id_type"
+                                                            [(ngModel)]="person.id_type" required #id_type="ngModel">
+                                                        <option value="">Select </option>
+                                                        <option value="National ID">National ID </option>
+                                                        <option value="Passport Number">Passport Number </option>
+                                                    </select>
+                                                    <div *ngIf="id_type.errors && (id_type.dirty || id_type.touched)">
+                                                        <label class="error-message">ID type is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: id_number.errors }">
+                                                    <label for="id_number" class="control-label">ID Number *</label>
+                                                    <input id="id_number" type="text" class="form-control"
+                                                           name="id_number" required
+                                                           [(ngModel)]="person.id_number" #id_number="ngModel">
+                                                    <div *ngIf="id_number.errors && (id_number.dirty || id_number.touched)">
+                                                        <label class="error-message">ID number is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static">
+                                                    <label for="kra_pin" class="control-label">KRA PIN Number</label>
+                                                    <input id="kra_pin" type="text" class="form-control"
+                                                           name="kra_pin"
+                                                           [(ngModel)]="person.kra_pin" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: date_of_birth.errors }">
+                                                    <label class="control-label">Date of birth *</label>
+                                                    <my-date-picker [options]="myDatePickerOptions" type="date"
+                                                                    name="date_of_birth" required
+                                                                    [selDate]="selDate" (dateChanged)="onDateChanged($event)"
+                                                                    [(ngModel)]="myDate.date_of_birth" #date_of_birth="ngModel">
+                                                    </my-date-picker>
+                                                    <span class="material-input"></span>
+                                                    <div *ngIf="date_of_birth.errors && (date_of_birth.dirty || date_of_birth.touched)">
+                                                        <label class="error-message">Date of birth is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static">
+                                                    <label class="control-label">Appointment date </label>
+                                                    <my-date-picker [options]="myDatePickerOptions" id="appointment" type="date"
+                                                                    name="appointment_date"
+                                                                    [selDate]="selDateAppointment" (dateChanged)="onDateChangedAppointment($event)"
+                                                                    [(ngModel)]="myDate.appointment_date" #appointment="ngModel">
+                                                    </my-date-picker>
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div [ngClass]="alt_director?'col-md-4':'col-md-6'">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: occupation.errors }">
+                                                    <label for="occupation" class="control-label">Occupation *</label>
+                                                    <input id="occupation" type="text" class="form-control"
+                                                           name="occupation" required
+                                                           [(ngModel)]="person.occupation" #occupation="ngModel">
+                                                    <div *ngIf="occupation.errors && (occupation.dirty || occupation.touched)">
+                                                        <label class="error-message">Occupation is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div [ngClass]="alt_director?'col-md-4':'col-md-6'">
+                                                <div class="form-group label-static">
+                                                    <label for="person_type" class="control-label">Role *</label>
+                                                    <select id="person_type" type="text" class="form-control"
+                                                           name="person_type"
+                                                           [(ngModel)]="person.person_type" (change)="changedOfficerType(person.person_type)">
+                                                        <option value="">Select role</option>
+                                                        <option value="Director">Director</option>
+                                                        <option value="Alternate Director">Alternate Director</option>
+                                                        <option value="Secretary">Secretary</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div [ngClass]="alt_director?'col-md-4':'col-md-6'" *ngIf="alt_director">
+                                                <div class="form-group label-static">
+                                                    <label for="parent_id" class="control-label">Alternate to *</label>
+                                                    <select id="parent_id" type="text" class="form-control"
+                                                            name="parent_id"
+                                                            [(ngModel)]="person.parent_id">
+                                                        <option value="">Select director</option>
+                                                        <option *ngFor="let director of directors" value="{{director.id}}">{{director.other_names}}{{director.surname}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab2" *ngIf="tab_num=='tab2'">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static">
+                                                    <label for="town" class="control-label"
+                                                           ngClass="{has-errors: town.errors }">Town/City *</label>
+                                                    <input id="town" type="text" class="form-control"
+                                                           placeholder="Town"
+                                                           name="town" required
+                                                           [(ngModel)]="person.town" #town="ngModel">
+                                                    <div *ngIf="town.errors && (town.dirty || town.touched)">
+                                                        <label [hidden]="!town.errors.required"
+                                                               class="label error-message">Town is required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static">
+                                                    <label for="street" class="control-label"
+                                                           ngClass="{has-errors: street.errors }">Road / Street *</label>
+                                                    <input id="street" type="text" class="form-control"
+                                                           placeholder="Street"
+                                                           name="surname" required
+                                                           [(ngModel)]="person.street" #street="ngModel">
+                                                    <div *ngIf="street.errors && (street.dirty || street.touched)">
+                                                        <label [hidden]="!street.errors.required"
+                                                               class="label error-message">Street is required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: postal_code.errors }">
+                                                    <label for="postal_code" class="control-label">Postal code *</label>
+                                                    <input id="postal_code" type="text" class="form-control"
+                                                           name="postal_code" required
+                                                           #postal_code="ngModel" [(ngModel)]="person.postal_code">
+                                                    <div *ngIf="postal_code.errors && (postal_code.dirty || postal_code.touched)">
+                                                        <label class="error-message">Postal code is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: box.errors }">
+                                                    <label for="box" class="control-label">Post office box *</label>
+                                                    <input id="box" type="text" class="form-control"
+                                                           name="box" required
+                                                           #box="ngModel" [(ngModel)]="person.box">
+                                                    <div *ngIf="box.errors && (box.dirty || box.touched)">
+                                                        <label class="error-message">Post office box is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: estate.errors }">
+                                                    <label for="estate" class="control-label">Estate *</label>
+                                                    <input id="estate" type="text" class="form-control"
+                                                           name="estate" required
+                                                           #estate="ngModel" [(ngModel)]="person.estate">
+                                                    <div *ngIf="estate.errors && (estate.dirty || estate.touched)">
+                                                        <label class="error-message">Estate is a required field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: house.errors }">
+                                                    <label for="house" class="control-label">Land Reference/Plot/House number *</label>
+                                                    <input id="house" type="text" class="form-control"
+                                                           name="house" required
+                                                           #house="ngModel" [(ngModel)]="person.house_number">
+                                                    <div *ngIf="house.errors && (house.dirty || house.touched)">
+                                                        <label class="error-message">House number is a required field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: building.errors }">
+                                                    <label for="estate" class="control-label">Building name *</label>
+                                                    <input id="building" type="text" class="form-control"
+                                                           name="building" required
+                                                           #building="ngModel" [(ngModel)]="person.building_name">
+                                                    <div *ngIf="building.errors && (building.dirty || building.touched)">
+                                                        <label class="error-message">Building name is a required field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: country.errors }">
+                                                    <label for="country" class="control-label">Country *</label>
+                                                    <select id="country" class="form-control"
+                                                            name="country"
+                                                            [(ngModel)]="person.country" required #country="ngModel">
+                                                        <option value="">Select </option>
+                                                        <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+                                                    </select>
+                                                    <div *ngIf="country.errors && (country.dirty || country.touched)">
+                                                        <label class="error-message">Country is a required field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-8">
+                                                <div class="form-group label-static">
+                                                    <label class="control-label">Profile photo</label>
+                                                    <label *ngIf="error" class="error-message">{{error}}</label>
+                                                </div>
+                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail img-raised">
+                                                        <img id="profile_photo" [src]="placeholder" alt="...">
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                                    <div>
+                                                    <span class="btn btn-raised btn-round btn-default btn-file">
+                                                        <span class="fileinput-new">Select image</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="hidden"><input type="file" name="..." (change)="setPlaceholder($event)">
+                                                    <div class="ripple-container"></div>
+                                                    </span>
+                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                                            <i class="fa fa-times"></i>Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" *ngIf="tab_num !='tab1'"
+                                            (click)="showPrevTab()" class="btn btn-prev">
+                                        &nbsp;<i class="material-icons">fast_rewind</i>
+                                        Previous
+                                    </button>
+                                    <button type="button" *ngIf="tab_num!='tab2' && !update" (click)="showNextTab()"
+                                            class="btn btn-next">
+                                        Next
+                                        &nbsp;<i class="material-icons">fast_forward</i>
+                                    </button>
+                                    <button type="submit" *ngIf="tab_num=='tab2'||update" class="btn btn-next"
+                                            [disabled]="!personForm.valid">
+                                        Save
+                                        &nbsp;<i class="material-icons">save</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header actions-card-header" data-background-color="red">
+                    <h4 class="title text-center">Actions</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table cp-action-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a routerLink="/en/dashboard/officers" class="btn btn-primary cp-action-btn text-center">
+                                    Return to officers' list
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

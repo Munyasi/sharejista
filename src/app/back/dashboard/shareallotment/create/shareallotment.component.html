@@ -1,0 +1,256 @@
+<div class="wizard">
+    <div class="card-content">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-8">
+                    <div class="wizard-side-nav">
+                        <ul class="nav nav-pills nav-pills-info nav-stacked">
+                            <li [ngClass]="{'active':tab_num=='tab1'}" (click)="showTab(1)">
+                                <a href="#tab1" data-toggle="tab" aria-expanded="true">Shares</a>
+                            </li>
+                            <li [ngClass]="{'active':tab_num=='tab2'}" (click)="showTab(2)">
+                                <a href="#tab2" data-toggle="tab" aria-expanded="true">Payment</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-8 col-xs-8">
+                    <div class="wizard-form-table">
+                        <div class="card">
+                            <form #shareTransferForm="ngForm" (ngSubmit)="createOrUpdate()">
+                                <div class="card-header actions-card-header text-center" data-background-color="red">
+                                    <h4 class="title">{{company_name}}</h4>
+                                    <p>Fill details to transfer shares</p>
+                                </div>
+                                <div class="card-content">
+                                    <span>*&nbsp;Required field</span>
+                                    <div class="tab1" *ngIf="tab_num=='tab1'">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static">
+                                                    <label for="transferer" class="control-label">Allot shares from</label>
+                                                    <input id="transferer" class="form-control" name="transferer_id" readonly="readonly" value="{{company_name}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: transferee.errors }">
+                                                    <label for="transferee" class="control-label">Allot shares to *</label>
+                                                    <select id="transferee" class="form-control"
+                                                            name="transferee_id" required
+                                                            [(ngModel)]="sharetransfer.transferee_id" #transferee="ngModel">
+                                                        <option *ngFor="let sh of shareholders" value="{{sh.id}}">{{sh.name}}</option>
+                                                    </select>
+                                                    <div *ngIf="transferee.errors && (transferee.dirty || transferee.touched)">
+                                                        <label [hidden]="!transferee.errors.required"
+                                                               class="label error-message">Select the shareholder to transfer shares to.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: share_type_id.errors }">
+                                                    <label for="share_type_id" class="control-label">Type of shares *</label>
+                                                    <select id="share_type_id" class="form-control"
+                                                            name="share_type_id" required [(ngModel)]="sharetransfer.share_type_id"
+                                                            (change)="calculateTotalShares(); updateParValue()"
+                                                             #share_type_id="ngModel">
+                                                        <option *ngFor="let st of sharetypes;let i = index" value="{{st.id}}">{{st.name}}</option>
+                                                    </select>
+                                                    <div *ngIf="share_type_id.errors && (share_type_id.dirty || share_type_id.touched)">
+                                                        <label [hidden]="!share_type_id.errors.required"
+                                                               class="label error-message">Select the type of shares to allot.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: number_of_shares.errors }">
+                                                    <label for="number_of_shares" class="control-label">Number of shares *</label>
+                                                    <input id="number_of_shares" type="text" class="form-control"
+                                                           name="number_of_shares" required
+                                                           #number_of_shares="ngModel" [(ngModel)]="sharetransfer.number_of_shares">
+                                                    <div *ngIf="number_of_shares.errors && (number_of_shares.dirty || number_of_shares.touched)">
+                                                        <label class="error-message">Number of shares is a required
+                                                            field</label>
+                                                    </div>
+                                                    <div *ngIf="sharetransfer.number_of_shares > transferer_total_shares">
+                                                        <label class="error-message">Number of shares is higher than available shares.</label>
+                                                    </div>
+                                                    <div *ngIf="sharetransfer.number_of_shares < 0">
+                                                        <label class="error-message">Number of shares is higher than available shares.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab2" *ngIf="tab_num=='tab2'">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: payment_method.errors }">
+                                                    <label for="payment_method" class="control-label">Payment Method *</label>
+                                                    <select id="payment_method" class="form-control"
+                                                            name="payment_method" required
+                                                            [(ngModel)]="sharePayment.payment_method" (change)="pdRequired(sharePayment.payment_method)" #payment_method="ngModel">
+                                                        <option value="Cash">Cash Payment</option>
+                                                        <option value="NonCash">Non-Cash Payment</option>
+                                                        <option value="Multiple">Multiple Payments</option>
+                                                    </select>
+                                                    <div *ngIf="payment_method.errors && (payment_method.dirty || payment_method.touched)">
+                                                        <label [hidden]="!payment_method.errors.required"
+                                                               class="label error-message">Select payment method used.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: share_type_id.errors }">
+                                                    <label for="payment_status" class="control-label">Payment Status *</label>
+                                                    <select id="payment_status" class="form-control"
+                                                            name="payment_status" required
+                                                            [(ngModel)]="sharetransfer.payment_status" #payment_status="ngModel">
+                                                        <option value="Full">Full</option>
+                                                        <option value="Partial">Partial</option>
+                                                    </select>
+                                                    <div *ngIf="payment_status.errors && (payment_status.dirty || payment_status.touched)">
+                                                        <label [hidden]="!payment_status.errors.required"
+                                                               class="label error-message">Select payment status</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" *ngIf="pd!=1">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: payment_description.errors }">
+                                                    <label for="payment_description" class="control-label">Payment Description(Non-cash) *</label>
+                                                    <textarea id="payment_description" class="form-control"
+                                                              name="payment_description" required
+                                                              [(ngModel)]="sharePayment.payment_description" #payment_description="ngModel">
+                                                    </textarea>
+                                                    <div *ngIf="payment_description.errors && (payment_description.dirty || payment_description.touched)">
+                                                        <label [hidden]="!payment_description.errors.required"
+                                                               class="label error-message">Add payment description.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: share_price.errors }">
+                                                    <label for="share_price" class="control-label">Share price *</label>
+                                                    <input id="share_price" class="form-control"
+                                                            name="share_price" required placeholder="Current par value: {{p_value}}"
+                                                            [(ngModel)]="sharetransfer.share_price" #share_price="ngModel">
+                                                    <div *ngIf="payment_method.errors && (payment_method.dirty || payment_method.touched)">
+                                                        <label [hidden]="!payment_method.errors.required"
+                                                               class="label error-message">Select payment method used.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" *ngIf="pd!=2">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: cash_payable.errors }">
+                                                    <label for="cash_payable" class="control-label">Amount payable (Cash) *</label>
+                                                    <input id="cash_payable" class="form-control"
+                                                           name="cash_payable" required
+                                                           [(ngModel)]="sharePayment.cash_payable" #cash_payable="ngModel">
+                                                    <div *ngIf="cash_payable.errors && (cash_payable.dirty || cash_payable.touched)">
+                                                        <label [hidden]="!cash_payable.errors.required"
+                                                               class="label error-message">Add cash payable</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="pd!=2">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: cash_amount.errors }">
+                                                    <label for="cash_amount" class="control-label">Amount paid (Cash) *</label>
+                                                    <input id="cash_amount" class="form-control"
+                                                              name="cash_amount" required
+                                                              [(ngModel)]="sharePayment.cash_amount" #cash_amount="ngModel">
+                                                    <div *ngIf="cash_amount.errors && (cash_amount.dirty || cash_amount.touched)">
+                                                        <label [hidden]="!cash_amount.errors.required"
+                                                               class="label error-message">Add cash amount</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" *ngIf="pd!=1">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: non_cash_payable.errors }">
+                                                    <label for="non_cash_payable" class="control-label">Amount payable (Non cash) *</label>
+                                                    <input id="non_cash_payable" class="form-control"
+                                                           name="non_cash_payable" required
+                                                           [(ngModel)]="sharePayment.non_cash_payable" #non_cash_payable="ngModel">
+                                                    <div *ngIf="non_cash_payable.errors && (non_cash_payable.dirty || non_cash_payable.touched)">
+                                                        <label [hidden]="!non_cash_payable.errors.required"
+                                                               class="label error-message">Add payable non cash amount.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="pd!=1">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: non_cash_amount.errors }">
+                                                    <label for="non_cash_amount" class="control-label">Amount paid (Non cash) *</label>
+                                                    <input id="non_cash_amount" class="form-control"
+                                                           name="non_cash_amount" required
+                                                           [(ngModel)]="sharePayment.non_cash_amount" #non_cash_amount="ngModel">
+                                                    <div *ngIf="non_cash_amount.errors && (non_cash_amount.dirty || non_cash_amount.touched)">
+                                                        <label [hidden]="!non_cash_amount.errors.required"
+                                                               class="label error-message">Add non cash amount.</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" *ngIf="tab_num !='tab1'"
+                                            (click)="showPrevTab()" class="btn btn-prev">
+                                        &nbsp;<i class="material-icons">fast_rewind</i>
+                                        Previous
+                                    </button>
+                                    <button type="button" *ngIf="tab_num!='tab2'" (click)="showNextTab()"
+                                            class="btn btn-next">
+                                        Next
+                                        &nbsp;<i class="material-icons">fast_forward</i>
+                                    </button>
+                                    <button type="submit" *ngIf="tab_num=='tab2'" class="btn btn-next"
+                                            [disabled]="!shareTransferForm.valid || sharetransfer.number_of_shares > transferer_total_shares || sharetransfer.number_of_shares < 0">
+                                        Save
+                                        &nbsp;<i class="material-icons">save</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header actions-card-header" data-background-color="red">
+                    <h4 class="title text-center">Actions</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table cp-action-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a routerLink="/en/dashboard/shareallotments" class="btn btn-primary cp-action-btn text-center">
+                                    Return to list
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

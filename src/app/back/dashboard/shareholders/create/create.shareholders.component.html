@@ -1,0 +1,269 @@
+<div class="wizard">
+    <div class="card-header" data-background-color="purple">
+        Create/Add new shareholder
+    </div>
+    <div class="card-content">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-8">
+                    <div class="wizard-side-nav">
+                        <ul class="nav nav-pills nav-pills-info nav-stacked">
+                            <li [ngClass]="{'active':tab_num=='tab1'}" (click)="showTab(1)">
+                                <a href="#tab1" data-toggle="tab" aria-expanded="true">Shareholder details</a>
+                            </li>
+                            <li [ngClass]="{'active':tab_num=='tab2'}" (click)="showTab(2)">
+                                <a href="#tab2" data-toggle="tab" aria-expanded="true">Physical address</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-8 col-xs-8">
+                    <div class="wizard-form-table">
+                        <div class="card">
+                            <form #shareholderForm="ngForm" (ngSubmit)="createOrUpdate()">
+                                <div class="card-header actions-card-header text-center" data-background-color="red">
+                                    <h4 class="title">Enter shareholder details</h4>
+                                </div>
+                                <div class="card-content">
+                                    <span>*&nbsp;Required field</span>
+                                    <div class="tab1" *ngIf="tab_num=='tab1'">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: type.errors }">
+                                                    <label for="type" class="control-label">Shareholder type *</label>
+                                                    <select id="type" class="form-control"
+                                                            name="type" required
+                                                            [(ngModel)]="shareholder.type" #type="ngModel">
+                                                        <option selected="selected" value="">Select shareholder type
+                                                        </option>
+                                                        <option value="corporate">Corporate</option>
+                                                        <option value="individual">Individual</option>
+                                                    </select>
+                                                    <div *ngIf="type.errors && (type.dirty || type.touched)">
+                                                        <label [hidden]="!type.errors.required"
+                                                               class="label error-message">Shareholder type is
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6"
+                                                 *ngIf="shareholder.type==='corporate' || shareholder.type === ''">
+                                                <div class="form-group label-static">
+                                                    <label for="name" class="control-label"
+                                                           ngClass="{has-errors: name.errors }">Corporate name *</label>
+                                                    <input id="name" type="text" class="form-control"
+                                                           placeholder="Corporate name"
+                                                           name="surname" required
+                                                           [(ngModel)]="shareholder.name" #name="ngModel">
+                                                    <div *ngIf="name.errors && (name.dirty || name.touched)">
+                                                        <label [hidden]="!name.errors.required"
+                                                               class="label error-message">Name is required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="shareholder.type==='individual'">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: salutation.errors }">
+                                                    <label class="control-label">Full name *</label>
+                                                    <input id="salutation" type="text" class="form-control"
+                                                           placeholder="Full name"
+                                                           name="salutation" required
+                                                           [(ngModel)]="shareholder.name" #salutation="ngModel">
+                                                    <div *ngIf="salutation.errors && (salutation.dirty || salutation.touched)">
+                                                        <label [hidden]="!salutation.errors.required"
+                                                               class="label error-message">Shareholder name is
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: email_address.errors }">
+                                                    <label for="email_address" class="control-label">Email address
+                                                        *</label>
+                                                    <input id="email_address" type="email" class="form-control"
+                                                           name="email_address" required
+                                                           placeholder="Email address"
+                                                           [(ngModel)]="shareholder.email_address"
+                                                           #email_address="ngModel">
+                                                    <div *ngIf="email_address.errors && (email_address.dirty || email_address.touched)">
+                                                        <label [hidden]="!email_address.errors.required"
+                                                               class="label error-message">Email address is a
+                                                            required</label>
+                                                        <label [hidden]="!email_address.errors.email"
+                                                               class="label error-message">Invalid email address</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: phone_number.errors }">
+                                                    <label for="phone_number" class="control-label">Phone number
+                                                        *</label>
+                                                    <input id="phone_number" type="text" class="form-control"
+                                                           name="phone_number" required
+                                                           placeholder="Phone number"
+                                                           [(ngModel)]="shareholder.phone_number"
+                                                           #phone_number="ngModel">
+                                                    <div *ngIf="phone_number.errors && (phone_number.dirty || phone_number.touched)">
+                                                        <label [hidden]="!phone_number.errors.required"
+                                                               class="label error-message">Phone number is a
+                                                            required</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" *ngIf="shareholder.type || shareholder.type===''">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: id_number.errors }">
+                                                    <label for="id_number" class="control-label"
+                                                           *ngIf="shareholder.type==='individual'">ID Number *</label>
+                                                    <label for="id_number" class="control-label"
+                                                           *ngIf="shareholder.type==='corporate' || shareholder.type===''">Company
+                                                        registration number *</label>
+                                                    <input id="id_number" type="text" class="form-control"
+                                                           name="id_number" required
+                                                           placeholder=""
+                                                           [(ngModel)]="shareholder.id_reg_number" #id_number="ngModel">
+                                                    <div *ngIf="id_number.errors && (id_number.dirty || id_number.touched)">
+                                                        <label class="error-message">Required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group label-static">
+                                                    <label for="appointment" class="control-label">Date joined *</label>
+
+                                                    <my-date-picker [options]="myDatePickerOptions" id="appointment" type="date"
+                                                                    name="appointment_date" required
+                                                                    [selDate]="selDate" (dateChanged)="onDateChanged($event)"
+                                                                    [(ngModel)]="myDate.appointment_date" #appointment="ngModel">
+                                                    </my-date-picker>
+                                                    <span class="material-input"></span>
+                                                    <div *ngIf="appointment.errors && (appointment.dirty || appointment.touched)">
+                                                        <label class="error-message">Appointment date is required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab2" *ngIf="tab_num=='tab2'">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: postal_code.errors }">
+                                                    <label for="postal_code" class="control-label">Postal code *</label>
+                                                    <input id="postal_code" type="text" class="form-control"
+                                                           name="postal_code" required
+                                                           #postal_code="ngModel" [(ngModel)]="shareholder.postal_code">
+                                                    <div *ngIf="postal_code.errors && (postal_code.dirty || postal_code.touched)">
+                                                        <label class="error-message">Postal code is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: box.errors }">
+                                                    <label for="box" class="control-label">Post office box *</label>
+                                                    <input id="box" type="text" class="form-control"
+                                                           name="box" required
+                                                           #box="ngModel" [(ngModel)]="shareholder.box">
+                                                    <div *ngIf="box.errors && (box.dirty || box.touched)">
+                                                        <label class="error-message">Post office box is a required
+                                                            field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group label-static"
+                                                     ngClass="{has-errors: town.errors }">
+                                                    <label for="town" class="control-label">Town/City *</label>
+                                                    <input id="town" type="text" class="form-control"
+                                                           name="town" required
+                                                           #town="ngModel" [(ngModel)]="shareholder.town">
+                                                    <div *ngIf="town.errors && (town.dirty || town.touched)">
+                                                        <label class="error-message">Town is a required field</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-8">
+                                                <div class="form-group label-static">
+                                                    <label class="control-label">Profile photo</label>
+                                                    <label *ngIf="error" class="error-message">{{error}}</label>
+
+                                                </div>
+                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail img-raised">
+                                                        <img [src]="placeholder" alt="...">
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                                    <div>
+                                                    <span class="btn btn-raised btn-round btn-default btn-file">
+                                                        <span class="fileinput-new">Select image</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="hidden"><input type="file" name="..." (change)="setPlaceholder($event)">
+                                                    <div class="ripple-container"></div>
+                                                    </span>
+                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                                            <i class="fa fa-times"></i>Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" *ngIf="tab_num !='tab1'"
+                                            (click)="showPrevTab()" class="btn btn-prev">
+                                        &nbsp;<i class="material-icons">fast_rewind</i>
+                                        Previous
+                                    </button>
+                                    <button type="button" *ngIf="tab_num!='tab2'" (click)="showNextTab()"
+                                            class="btn btn-next">
+                                        Next
+                                        &nbsp;<i class="material-icons">fast_forward</i>
+                                    </button>
+                                    <button type="submit" *ngIf="tab_num=='tab2'" class="btn btn-next"
+                                            [disabled]="!shareholderForm.valid">
+                                        Save
+                                        &nbsp;<i class="material-icons">save</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header actions-card-header" data-background-color="red">
+                    <h4 class="title text-center">Actions</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table cp-action-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a routerLink="/en/dashboard/shareholders" class="btn btn-primary cp-action-btn text-center">
+                                    Return to shareholders' list
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

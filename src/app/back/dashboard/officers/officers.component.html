@@ -1,0 +1,171 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">{{company_name}}</h4>
+                <p class="cmp-name">Officers/Directors</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <div class="row">
+                    <div class="col-md-2">
+                        <form>
+                            <input type="text" class="form-control search-input"
+                                   [formControl]="term" placeholder="Search officers...">
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+                        <img src="../../../../assets/img/rolling.gif" class="search-spinner" *ngIf="searching">
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="text-danger">
+                    <tr *ngIf="officers?.length > 0">
+                        <th>Name</th>
+                        <th>Appointment</th>
+                        <th>Date of Appointment</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let off of officers | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+                        <td>{{off.salutation}}&nbsp;{{off.surname}}&nbsp;{{off.other_names}}</td>
+                        <td>{{off.person_type}}</td>
+                        <td>{{off.appointment_date | date: 'yMMMd'}}</td>
+                        <td>
+                            <span class="label label-active share-status" *ngIf="!off.resignation_date">Current</span>
+                            <span class="label label-inactive share-status" *ngIf="off.resignation_date">Resigned</span>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    Edit
+                                    &nbsp;<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu menu-extended">
+                                    <li><a routerLink="/en/officers/{{off.id}}">View officer</a></li>
+                                    <li class="divider"></li>
+                                    <li><a routerLink="/en/officers/{{off.id}}/edit">Edit officer</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Service address as director</a></li>
+                                    <ng-container *ngIf="off.person_type === 'Director'">
+                                        <li class="divider"></li>
+                                        <li><a routerLink="/en/officers/{{off.id}}/appoint">Appoint as secretary</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a routerLink="/en/officers/{{off.id}}/terminate">Terminate appointment as
+                                            director</a></li>
+                                    </ng-container>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="officers?.length < 1">
+                        <td colspan="6" class="empty-list-td">
+                            <p>Currently there are no officers added to the system for your company</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+                    <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
+                                         previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/officers/add" class="btn btn-primary cp-action-btn">
+                                Add New Officer
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn">
+                                View company registers
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr6forms" class="btn btn-primary cp-action-btn">
+                                View CR6 forms
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr6forms/generate" class="btn btn-primary cp-action-btn">
+                                Generate CR6 form
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr7forms" class="btn btn-primary cp-action-btn">
+                                View CR7 forms
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr7forms/generate" class="btn btn-primary cp-action-btn">
+                                Generate CR7 form
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr8forms" class="btn btn-primary cp-action-btn">
+                                View CR8 forms
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr8forms/generate" class="btn btn-primary cp-action-btn">
+                                Generate CR8 form
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr9forms" class="btn btn-primary cp-action-btn">
+                                View CR9 forms
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr9forms/generate" class="btn btn-primary cp-action-btn">
+                                Generate CR9 form
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

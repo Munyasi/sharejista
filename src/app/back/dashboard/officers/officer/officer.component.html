@@ -1,0 +1,241 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-8">
+                <div class="wizard-side-nav">
+                    <ul class="nav nav-pills nav-pills-info nav-stacked">
+                        <li [ngClass]="{'active':tab_num=='tab1'}" (click)="showTab(1)">
+                            <a href="#tab1" data-toggle="tab" aria-expanded="true">
+                                Officer details
+                            </a>
+                        </li>
+                        <li [ngClass]="{'active':tab_num=='tab2'}" (click)="showTab(2)">
+                            <a href="#tab2" data-toggle="tab" aria-expanded="false">
+                                Residential Details
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-8">
+                <div class="wizard-form-table">
+                    <div class="card">
+                        <div class="card-header actions-card-header text-center" data-background-color="red">
+                            <h4 class="title">{{company_name}}</h4>
+                            <p>{{person.salutation}}&nbsp;{{person.surname}}&nbsp;{{person.other_names}} - {{person.person_type}}</p>
+                        </div>
+                        <div class="card-content">
+                            <ul class="ul-company tab1" *ngIf="tab_num=='tab1'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Name
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.salutation}}&nbsp;{{person.surname}}&nbsp;{{person.other_names}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Email address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.email_address}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Phone Number
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.area_code}} {{person.phone_number}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Former names
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.former_names}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Nationality
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.nationality}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            ID Type
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.id_type}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            ID Number
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.id_number}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            KRA Pin
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.kra_pin}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Date of birth
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.date_of_birth | date:'yMMMd'}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Officer type
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.person_type}}
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Appointment date
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.appointment_date | date:'yMMMd'}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Resignation date
+                                        </div>
+                                        <div class="col-sm-6" *ngIf="person.resignation_date">
+                                            {{person.resignation_date | date:'yMMMd'}}
+                                        </div>
+                                        <div class="col-sm-6" *ngIf="!person.resignation_date">
+                                            N/A
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Postal address
+                                        </div>
+                                        <div class="col-sm-6">
+                                            P.O Box {{person.postal_code}} - {{person.box}}, <br>
+                                            {{person.town}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="ul-company tab2" *ngIf="tab_num=='tab2'">
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Building name
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{person.building_name}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            House number
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.house_number}}
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                           Estate
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{person.estate}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Street
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{person.street}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header actions-card-header" data-background-color="red">
+                <h4 class="title text-center">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/officers/{{person.id}}/edit" class="btn btn-primary cp-action-btn text-center">
+                                Edit officer information
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/officers" class="btn btn-primary cp-action-btn text-center">
+                                Return to officers' list
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

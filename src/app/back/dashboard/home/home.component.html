@@ -1,0 +1,148 @@
+<div class="card-content">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">{{company.company_name}}</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-danger">
+                    <tr>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <b>Company Code</b>
+                            <span class="cp-info-value">#{{company.id}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Registration Number</b>
+                            <span class="cp-info-value">{{company.registration_no}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Incorporation Date</b>
+                            <span class="cp-info-value">{{company.incorporation_date|date}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Accounting Reference Date</b>
+                            <span class="cp-info-value">{{accounting_reference_date}}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Key dates</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td class="cp-td"><i class="material-icons">date_range</i> 12/12/2016</td>
+                        <td>
+                            File company returns to KRA
+                        </td>
+                        <td class="text-danger">
+                            <span class="label label-danger">2 days</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cp-td"><i class="material-icons">date_range</i> 12/12/2016</td>
+                        <td>
+                            File company returns to KRA
+                        </td>
+                        <td class="text-danger">
+                            <span class="label label-danger">2 days</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cp-td"><i class="material-icons">date_range</i> 12/12/2016</td>
+                        <td>
+                            File company returns to KRA
+                        </td>
+                        <td class="text-danger">
+                            <span class="label label-danger">2 days</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cp-td"><i class="material-icons">date_range</i> 12/12/2016</td>
+                        <td>
+                            File company returns to KRA
+                        </td>
+                        <td class="text-danger">
+                            <span class="label label-danger">2 days</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cp-td"><i class="material-icons">date_range</i> 12/12/2016</td>
+                        <td>
+                            File company returns to KRA
+                        </td>
+                        <td class="text-danger">
+                            <span class="label label-danger">2 days</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <button routerLink="/en/dashboard/annual_returns/generate" class="btn btn-primary cp-action-btn">
+                                Generate Annual Return
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/sharetransfer" class="btn btn-primary cp-action-btn">
+                                Transfer Shares
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/shareallotment" class="btn btn-primary cp-action-btn">
+                                Allot New Shares
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary cp-action-btn">
+                                View Company Registers
+                                <i class="material-icons">arrow_forward</i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">CR6 Forms for {{companyName}}</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-danger">
+                    <tr>
+                        <th>File name</th>
+                        <th>Particulars from </th>
+                        <th>Particulars to</th>
+                        <th>Date created</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let cr6 of CR6Items | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+                        <td>{{cr6.name}}</td>
+                        <td>{{cr6.from | date }}</td>
+                        <td>{{cr6.to | date }}</td>
+                        <td>{{cr6.date | date }}</td>
+                        <td>
+                            <a (click)="download(cr6.name)" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                Download
+                            </a>
+                        </td>
+                    </tr>
+                    <tr *ngIf="CR6Items?.length < 1">
+                        <td colspan="6" class="empty-list-td">
+                            <p>There are no CR7 forms created for your company</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+                    <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
+                                         previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/cr6forms/generate" class="btn btn-primary cp-action-btn">
+                                Generate CR6 form
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

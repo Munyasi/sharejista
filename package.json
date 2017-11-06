@@ -5,10 +5,16 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --aot --vendor-chunk=false --no-sourcemap --output-hashing none",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "test2": "node test.js",
+    "clean": "rm -rf dist",
+    "minify": "uglifyjs dist/main.bundle.js --screw-ie8 --compress --mangle --output dist/main.bundle.js && uglifyjs dist/inline.bundle.js --screw-ie8 --compress --mangle --output dist/inline.bundle.js",
+    "gzip": "gzip -c dist/main.bundle.js > dist/main.bundle.js.gz && gzip -c dist/scripts.bundle.js > dist/scripts.bundle.js.gz && gzip -c dist/inline.bundle.js > dist/inline.bundle.js.gz && gzip -c dist/styles.bundle.css > dist/styles.bundle.css.gz",
+    "build:prod": "npm run clean && npm run build && npm run minify && npm run gzip",
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -20,12 +26,21 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@angular/animations": "^4.3.3",
+    "moment-mini": "^2.18.1",
+    "mydatepicker": "^2.0.27",
+    "ng2-order-pipe": "^0.1.5",
+    "ng2-toastr": "^4.1.2",
+    "ngx-pagination": "^3.0.1",
+    "ngx-progressbar": "^2.0.3",
+    "ngx-typeahead": "0.0.3",
+    "underscore": "^1.8.3",
     "core-js": "^2.4.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0",
+    "@angular/cli": "1.2.4",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",

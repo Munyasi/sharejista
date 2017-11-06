@@ -1,0 +1,57 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <form #terminationForm="ngForm" class="form-horizontal" (ngSubmit)="terminate()">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Terminate {{person.salutation}} {{person.surname}} {{person.other_names}}</h4>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group label-static">
+                                <label for="from" class="control-label"
+                                       ngClass="{has-errors: resignation_date.errors }">Date of termination/resignation *</label>
+                                <my-date-picker id="from" name="resignation_date" class=""
+                                                [options]="myDatePickerOptions"
+                                                [selDate]="selDate"
+                                                (dateChanged)="onToDateChanged($event)"
+                                                [(ngModel)]="date.resignation_date" required #resignation_date="ngModel">
+                                </my-date-picker>
+                                <div *ngIf="resignation_date.errors && (resignation_date.dirty || resignation_date.touched)">
+                                    <label [hidden]="!resignation_date.errors.required"
+                                           class="label error-message">Date of termination is required</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button [disabled]="!terminationForm.valid" type="submit" class="btn btn-next">
+                        Terminate
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/officers" class="btn btn-primary cp-action-btn">
+                                Go to CR7 officer's list
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

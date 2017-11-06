@@ -1,0 +1,93 @@
+<div class="card-content">
+    <div class="col-md-9">
+        <form class="form-horizontal" (ngSubmit)="downloadList()">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Export shareholders list for {{companyName}}</h4>
+                </div>
+                <div class="card-content table-responsive">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="ascdesc" value="ASC" [(ngModel)]="exportConfig.order">
+                                    <span class="circle"></span>
+                                    <span class="check"></span> Ascending
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="ascdesc" value="DESC" [(ngModel)]="exportConfig.order">
+                                    <span class="circle"></span>
+                                    <span class="check"></span> Descending
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="field" value="name" [(ngModel)]="exportConfig.field" >
+                                    <span class="circle"></span>
+                                    <span class="check"></span> Name
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="field" value="shares" [(ngModel)]="exportConfig.field">
+                                    <span class="circle"></span>
+                                    <span class="check"></span> No. of shares
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="type" class="col-md-1 label-on-left">Type</label>
+                        <div class="col-md-4">
+                           <div class="type form-group label-floating is-empty">
+                               <label class="control-label"></label>
+                               <select id="type" class="form-control" name="type" [(ngModel)]="exportConfig.type">
+                                   <option selected="selected" value="doc">Doc</option>
+                                   <option selected="selected" value="xlsx">Excel</option>
+                               </select>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-next">
+                        Export
+                        <i class="material-icons">file_download</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">Actions</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table cp-action-table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a routerLink="/en/dashboard/shareholders" class="btn btn-primary cp-action-btn">
+                                Go to shareholders list
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

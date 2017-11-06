@@ -1,0 +1,26 @@
+.wizard .wizard-progress .progress{
+    height: 10px;
+    margin-bottom: 5px;
+}
+.wizard .wizard-progress span{
+    font-weight: 400;
+}
+.wizard .wizard-progress span.left{
+    float: left;
+}
+
+.wizard .wizard-progress span.right{
+    float: right;
+}
+.wizard-side-nav {
+    margin-top: 27px;
+    margin-left: 5px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    /*border-right: 1px solid gray;*/
+}
+.wizard-side-nav .nav.nav-pills li a{
+    text-align: left;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
