@@ -5,6 +5,7 @@ export interface CR6Interface {
   "name": string;
   "from": Date;
   "to": Date;
+  "data_object": string;
   "date": Date;
   "id"?: number;
 }
@@ -13,6 +14,7 @@ export class CR6 implements CR6Interface {
   "name": string;
   "from": Date;
   "to": Date;
+  "data_object": string;
   "date": Date;
   "id": number;
   constructor(data?: CR6Interface) {
@@ -58,6 +60,10 @@ export class CR6 implements CR6Interface {
         "to": {
           name: 'to',
           type: 'Date'
+        },
+        "data_object": {
+          name: 'data_object',
+          type: 'string'
         },
         "date": {
           name: 'date',

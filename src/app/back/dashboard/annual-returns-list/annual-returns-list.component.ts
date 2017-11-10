@@ -3,6 +3,8 @@ import {AnnualReturn, AnnualReturnApi} from "../../shared/sdk/index";
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {StorageBrowser} from '../../shared/sdk/index';
 import {BASE_URL, API_VERSION} from '../../shared/base.url'
+import {CompanyApi} from "../../shared/sdk/services/custom/Company";
+
 @Component({
     selector: 'app-annual-returns-list',
     templateUrl: './annual-returns-list.component.html',
@@ -18,6 +20,7 @@ export class AnnualReturnsListComponent implements OnInit {
     itemsPerPage: number = 8; // number of items per page
     totalItems: number; // total items in the database
     constructor(private annualReturnApi: AnnualReturnApi,
+                private companyApi: CompanyApi,
                 private storageBrowser: StorageBrowser,
                 private toastr: ToastsManager) {
     }
@@ -29,8 +32,15 @@ export class AnnualReturnsListComponent implements OnInit {
         this.getAnnualReturns(this.p);
     }
 
-    download(name){
-        window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR9s/download/${name}`;
+    download(id: number){
+        const p = this.companyApi.generateAnnualReturnById(id);
+        p.subscribe( res => {
+                window.location.href = `${BASE_URL}/${API_VERSION}/outputs/annual_returns/download/${res.data.path}`;
+                this.toastr.info(`Downloading annual return form for ${this.companyName}`);
+            },
+            err => {
+                this.toastr.error('Something went wrong');
+            });
     }
 
     getAnnualReturns(page: number){
@@ -44,12 +54,12 @@ export class AnnualReturnsListComponent implements OnInit {
             skip: skip,
             order: 'date DESC'
         })
-            .subscribe((annual_returns: any[]) => {
-                    this.annualReturnItems = annual_returns;
-                },
-                (err) => {
-                    this.toastr.error('Something went wrong. Reload to try again.');
-                })
+        .subscribe((annual_returns: any[]) => {
+                this.annualReturnItems = annual_returns;
+            },
+            (err) => {
+                this.toastr.error('Something went wrong. Reload to try again.');
+            })
     }
 
     getCount(){

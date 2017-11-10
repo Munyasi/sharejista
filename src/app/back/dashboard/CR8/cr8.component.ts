@@ -19,6 +19,9 @@ export class CR8ListComponent implements OnInit {
     itemsPerPage: number = 8; // number of items per page
     totalItems: number; // total items in the database
 
+    //downloads
+    files = [];
+
     constructor(private CR7Api: CR7Api,
                 private storageBrowser: StorageBrowser,
                 private toastr: ToastsManager){
@@ -33,6 +36,19 @@ export class CR8ListComponent implements OnInit {
 
     download(name){
         window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR8s/download/${name}`;
+    }
+
+    getFileNames(id: number) {
+        let p = this.CR7Api.generateCR8ById(id);
+        p.subscribe( paths =>{
+                if(paths.data.length === 0)
+                    this.toastr.error('We could not generate the CR6 forms for this record. Please try again later.');
+                else
+                    this.files = paths.data;
+            },
+            err => {
+                this.toastr.error('Something went wrong. Please try again.');
+            });
     }
 
     getCR8Forms(page: number) {
@@ -64,5 +80,9 @@ export class CR8ListComponent implements OnInit {
     pageChanged(page){
         this.p = page;
         this.getCR8Forms(page);
+    }
+
+    goBackToCR6Forms(){
+        this.files = [];
     }
 }

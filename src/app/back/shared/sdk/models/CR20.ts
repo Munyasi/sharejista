@@ -8,6 +8,7 @@ export interface CR20Interface {
   "name": string;
   "from": Date;
   "to": Date;
+  "data_object": string;
   "date": Date;
   "id"?: number;
   "companyId"?: number;
@@ -18,6 +19,7 @@ export class CR20 implements CR20Interface {
   "name": string;
   "from": Date;
   "to": Date;
+  "data_object": string;
   "date": Date;
   "id": number;
   "companyId": number;
@@ -65,6 +67,10 @@ export class CR20 implements CR20Interface {
         "to": {
           name: 'to',
           type: 'Date'
+        },
+        "data_object": {
+          name: 'data_object',
+          type: 'string'
         },
         "date": {
           name: 'date',

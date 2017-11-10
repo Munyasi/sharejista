@@ -5,57 +5,101 @@
                 <div class="card-header" data-background-color="red">
                     <h4 class="title">Export shareholders list for {{companyName}}</h4>
                 </div>
-                <div class="card-content table-responsive">
+                <div class="card-content">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="ascdesc" value="ASC" [(ngModel)]="exportConfig.order">
-                                    <span class="circle"></span>
-                                    <span class="check"></span> Ascending
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="ascdesc" value="DESC" [(ngModel)]="exportConfig.order">
-                                    <span class="circle"></span>
-                                    <span class="check"></span> Descending
-                                </label>
+                            <div class=" form-group">
+                                <label for="type" class="control-label">File Type*</label>
+                                <select id="type"  class="form-control" name="type-filter" [(ngModel)]="exportConfig.type">
+                                    <option selected="selected" value="doc">Doc</option>
+                                    <option selected="selected" value="xlsx">Excel</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="field" value="name" [(ngModel)]="exportConfig.field" >
-                                    <span class="circle"></span>
-                                    <span class="check"></span> Name
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="field" value="shares" [(ngModel)]="exportConfig.field">
-                                    <span class="circle"></span>
-                                    <span class="check"></span> No. of shares
-                                </label>
+                        <div class="col-md-12">
+                            <div class="filter-wrapper">
+                                <div class="filter-container first">
+                                    <div class="checkbox">
+                                        <label class="filter-by">
+                                            Order/filter By:
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="filter-container">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="optionsCheckboxes" [(ngModel)]="showFilters.name">
+                                            <span class="checkbox-material"><span class="check"></span></span>
+                                            Shareholder's name
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="filter-container">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="no_of_shares" [(ngModel)]="showFilters.shares">
+                                            <span class="checkbox-material"><span class="check"></span></span>
+                                            No of shares
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="filter-container">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="range" [(ngModel)]="showFilters.sharesRange">
+                                            <span class="checkbox-material">
+                                        <span class="check"></span></span>
+                                            Range of shares
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="filter-container">
+                                    <div class="checkbox">
+                                        <label  class="clear-filters">
+                                            <input style="display: none" type="checkbox" name="optionsCheckboxes" (change)="noneChanged($event)">
+                                             <span class="fa fa-times"></span>&nbsp;Clear Filters
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <label for="type" class="col-md-1 label-on-left">Type</label>
-                        <div class="col-md-4">
-                           <div class="type form-group label-floating is-empty">
-                               <label class="control-label"></label>
-                               <select id="type" class="form-control" name="type" [(ngModel)]="exportConfig.type">
-                                   <option selected="selected" value="doc">Doc</option>
-                                   <option selected="selected" value="xlsx">Excel</option>
-                               </select>
-                           </div>
+                        <div class="col-md-4" *ngIf="showFilters.name">
+                            <div class=" form-group">
+                                <label for="name" class="control-label">Shareholder name</label>
+                                <select id="name"  class="form-control" name="name-filter" [(ngModel)]="exportConfig.name">
+                                    <option value="">Select</option>
+                                    <option  value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="showFilters.shares">
+                            <div class=" form-group">
+                                <label for="shares" class="control-label">No. of shares</label>
+                                <select id="shares"  class="form-control" name="shares-number-filter" [(ngModel)]="exportConfig.shares">
+                                    <option value="">Select</option>
+                                    <option  value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="showFilters.sharesRange">
+                            <div class="range-wrapper">
+                                <div class="form-group">
+                                    <label for="min" class="control-label">Min. shares:</label>
+                                    <input id="min" type="text" class="form-control" name="shares-range-min" [(ngModel)]="exportConfig.sharesRange.min">
+                                </div>
+                            </div>
+                            <div class="range-wrapper">
+                                <div class="form-group">
+                                    <label for="max" class="control-label">Max shares:</label>
+                                    <input id="max" type="text" class="form-control" name="shares-range-max" [(ngModel)]="exportConfig.sharesRange.max">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

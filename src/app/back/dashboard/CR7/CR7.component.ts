@@ -10,13 +10,14 @@ import { BASE_URL, API_VERSION } from '../../shared/base.url'
     moduleId: module.id,
     styleUrls: ['CR7.component.css'],
     templateUrl: 'CR7.component.html',
-    providers: [CR7Api,StorageBrowser]
+    providers: [CR7Api, StorageBrowser]
 })
 
 export class CR7ListComponent implements OnInit{
     CR7Items: CR7[];
     companyId: number;
     companyName: string;
+    errorMessage: string = 'Something went wrong. Reload to try again.';
     /* pagination */
     p: number = 1; // set first page to 1
     itemsPerPage: number = 8; // number of items per page
@@ -34,8 +35,15 @@ export class CR7ListComponent implements OnInit{
         this.getCR7Forms(this.p);
     }
 
-    download(name){
-        window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR7s/download/${name}`;
+    download(id: number){
+        let p = this.CR7Api.generateCR7ById(id);
+        p.subscribe( res => {
+            let name = res.data.path;
+            window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR7s/download/${name}`;
+        },
+        err => {
+           this.errorHandler(err);
+        });
     }
 
     getCR7Forms(page: number){
@@ -53,20 +61,32 @@ export class CR7ListComponent implements OnInit{
         .subscribe((cr7s: any[]) => {
                 this.CR7Items = cr7s;
             },
-            (err) => {
-                this.toastr.error('Something went wrong. Reload to try again.');
-            })
+            err => {
+                this.errorHandler(err);
+            });
     }
 
     getCount(){
-        this.CR7Api.count({company_id: this.companyId,  type: 'CR7' }).subscribe((res) => {
+        let p = this.CR7Api.count({
+            company_id: this.companyId,
+            type: 'CR7'
+        });
+
+        p.subscribe((res) => {
             if(res)
                 this.totalItems = res.count;
+        },
+        err => {
+            this.errorHandler(err);
         });
     }
 
     pageChanged(page){
         this.p = page;
         this.getCR7Forms(page);
+    }
+
+    errorHandler(err) {
+        this.toastr.error(this.errorMessage);
     }
 }

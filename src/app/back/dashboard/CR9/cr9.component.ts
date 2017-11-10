@@ -8,12 +8,13 @@ import { BASE_URL, API_VERSION } from '../../shared/base.url'
   selector: 'app-cr9',
   templateUrl: './cr9.component.html',
   styleUrls: ['./cr9.component.css'],
-  providers: [CR9Api,StorageBrowser]
+  providers: [CR9Api, StorageBrowser]
 })
 export class CR9ListComponent implements OnInit {
     CR9Items: CR9[];
     companyId: number;
     companyName: string;
+    errorMessage: string = 'Something went wrong. Reload to try again.';
     /* pagination */
     p: number = 1; // set first page to 1
     itemsPerPage: number = 8; // number of items per page
@@ -30,8 +31,15 @@ export class CR9ListComponent implements OnInit {
         this.getCR9Forms(this.p);
     }
 
-    download(name){
-        window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR9s/download/${name}`;
+    download(id: number){
+        let p = this.CR9Api.generateCR9ById(id);
+        p.subscribe( res => {
+            let name = res.data.path;
+            window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR9s/download/${name}`;
+        },
+        err => {
+            this.toastr.error(this.errorMessage);
+        });
     }
 
     getCR9Forms(page: number){
@@ -49,7 +57,7 @@ export class CR9ListComponent implements OnInit {
                 this.CR9Items = cr9s;
             },
             (err) => {
-                this.toastr.error('Something went wrong. Reload to try again.');
+                this.toastr.error(this.errorMessage);
             })
     }
 

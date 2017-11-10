@@ -341,7 +341,7 @@ export class ShareholderApi extends BaseLoopBackApi {
    *
    * @param {object} data Request data.
    *
-   *  - `company_id` – `{string}` - 
+   *  - `company_id` – `{number}` - 
    *
    *  - `export_config` – `{object}` - 
    *

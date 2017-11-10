@@ -5,10 +5,10 @@
                 <h4 class="title">CR6 Forms for {{companyName}}</h4>
             </div>
             <div class="card-content table-responsive table-full-width">
-                <table class="table">
+                <table *ngIf="!files.length" class="table">
                     <thead class="text-danger">
                     <tr>
-                        <th>File name</th>
+                        <th>Name</th>
                         <th>Particulars from </th>
                         <th>Particulars to</th>
                         <th>Date created</th>
@@ -22,7 +22,7 @@
                         <td>{{cr6.to | date }}</td>
                         <td>{{cr6.date | date }}</td>
                         <td>
-                            <a (click)="download(cr6.name)" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <a (click)="getFileNames(cr6.id)" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
                                 Download
                             </a>
                         </td>
@@ -34,7 +34,25 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="pagination-container">
+                <table *ngIf="files.length" class="table">
+                    <thead class="text-danger">
+                    <tr>
+                        <th>File Name</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let file of files">
+                        <td>{{file}}</td>
+                        <td>
+                            <a (click)="download(file)" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                Download
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="!files.length" class="pagination-container">
                     <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
                                          previousLabel="Prev" nextLabel="Next">
                     </pagination-controls>
@@ -58,7 +76,14 @@
                             </a>
                         </td>
                     </tr>
-
+                    <tr *ngIf="files.length">
+                        <td>
+                            <a (click)="goBackToCR6Forms()" class="btn btn-primary cp-action-btn">
+                                Go back to CR6 forms
+                                <i class="material-icons">arrow_forward</i>
+                            </a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

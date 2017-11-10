@@ -6288,3 +6288,7 @@ footer .btn {
     position: absolute;
     right: -33px;
 }
+
+label.clear-filters {
+    color: #E44141 !important;
+}

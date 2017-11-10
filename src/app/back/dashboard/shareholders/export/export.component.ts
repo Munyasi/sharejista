@@ -15,6 +15,11 @@ import { BASE_URL, API_VERSION } from '../../../shared/base.url'
 export class ExportShareholdersComponent implements OnInit{
     companyName: String;
     companyId: String;
+    showFilters = {
+        name: false,
+        shares: false,
+        sharesRange: false
+    };
     exportConfig = new ExportConfig();
     constructor(private shareholderApi: ShareholderApi,
                 private storageBrowser: StorageBrowser,
@@ -24,12 +29,28 @@ export class ExportShareholdersComponent implements OnInit{
     ngOnInit(){
         this.companyId = this.storageBrowser.get("company_id");
         this.companyName = this.storageBrowser.get('company_name');
-        this.exportConfig.field = 'name';
-        this.exportConfig.order = 'asc';
-        this.exportConfig.type = 'doc'
+        this.exportConfig.type = 'doc';
+        this.exportConfig.shares = '';
+        this.exportConfig.name = '';
+        this.exportConfig.sharesRange = {
+            min: null,
+            max: null
+        };
+
+    }
+
+    noneChanged(event){
+        if(event.target.checked) {
+            this.showFilters = {
+                name: false,
+                shares: false,
+                sharesRange: false
+            };
+        }
     }
 
     downloadList(){
+        console.log(this.exportConfig);
         this.shareholderApi.generatelist(this.companyId, this.exportConfig)
             .subscribe((res) => {
                     if(res.data.success === 1){
@@ -42,8 +63,12 @@ export class ExportShareholdersComponent implements OnInit{
     }
 }
 
-export class ExportConfig{
-    "field": string;
-    "order": string;
-    "type": string;
+export class ExportConfig {
+    'type': string;
+    'name': string;
+    'shares': string;
+    'sharesRange': {
+        'min': number,
+        'max': number
+    }
 }

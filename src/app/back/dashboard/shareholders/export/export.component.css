@@ -2,3 +2,36 @@
     padding-bottom: 7px;
     margin: -10px 0 0 0;
 }
+
+.form-group{
+    margin: 0;
+}
+
+.filter-container {
+    position: relative;
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.first {
+    margin-left: 0 !important;
+}
+
+.checkbox label {
+    color: rgba(0, 0, 0, 0.78);
+}
+
+.checkbox label, .radio label, label {
+    line-height: 28px;
+}
+
+.range-wrapper {
+    position: relative;
+    float: left;
+}
+
+.range-wrapper .form-group {
+    width: 110px;
+    margin-left: 10px;
+}
