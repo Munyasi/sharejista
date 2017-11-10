@@ -15,7 +15,7 @@ export class GenerateCR9Component implements OnInit {
     companyId: number;
     companyName: String;
     cr9Config = new CR9Config();
-    fileName: string;
+    files: string[];
 
     myDatePickerOptions: IMyDpOptions = {
         dateFormat: 'yyyy/mm/dd',
@@ -56,8 +56,7 @@ export class GenerateCR9Component implements OnInit {
                         this.toastr.warning(res.data.message);
                     }
                     else{
-                        this.fileName = res.data.path;
-                        window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR9s/download/${this.fileName}`;
+                        window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR9s/download/${res.data.path}`;
                         this.toastr.info(`Downloading CR9 form for ${this.companyName}`);
                     }
                 },

@@ -16,7 +16,6 @@ export class GenerateCR7Component implements OnInit{
     companyId: number;
     companyName: String;
     cr7Config = new CR7Config();
-    filePath: string;
 
     myDatePickerOptions: IMyDpOptions = {
         dateFormat: 'yyyy/mm/dd',
@@ -52,13 +51,14 @@ export class GenerateCR7Component implements OnInit{
     generate(){
         this.cr7Api.generateCR7(this.cr7Config.companyId,this.cr7Config.from.formatted, this.cr7Config.to.formatted)
             .subscribe((res) => {
+                console.log(res);
                 if(res.data.success === 0){
                     //failed
                     this.toastr.warning(res.data.message);
                 }
                 else{
-                    this.filePath = res.data.path;
-                    window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR7s/download/${this.filePath}`;
+                    let filePath = res.data.path;
+                    window.location.href = `${BASE_URL}/${API_VERSION}/outputs/CR7s/download/${filePath}`;
                     this.toastr.info(`Downloading CR7 form for ${this.companyName}`);
                 }
             },
