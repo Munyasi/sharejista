@@ -15,7 +15,7 @@ export class GenerateCR9Component implements OnInit {
     companyId: number;
     companyName: String;
     cr9Config = new CR9Config();
-    fileName: string;
+    fileName: any;
 
     myDatePickerOptions: IMyDpOptions = {
         dateFormat: 'yyyy/mm/dd',
