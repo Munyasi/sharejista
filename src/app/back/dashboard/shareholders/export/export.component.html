@@ -30,7 +30,7 @@
                                 <div class="filter-container">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="optionsCheckboxes" [(ngModel)]="showFilters.name">
+                                            <input type="checkbox" name="name" (change)="clearFilter($event)" [(ngModel)]="showFilters.name">
                                             <span class="checkbox-material"><span class="check"></span></span>
                                             Shareholder's name
                                         </label>
@@ -39,7 +39,7 @@
                                 <div class="filter-container">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="no_of_shares" [(ngModel)]="showFilters.shares">
+                                            <input type="checkbox" name="number-shares" (change)="clearFilter($event)" [(ngModel)]="showFilters.shares">
                                             <span class="checkbox-material"><span class="check"></span></span>
                                             No of shares
                                         </label>
@@ -48,7 +48,7 @@
                                 <div class="filter-container">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="range" [(ngModel)]="showFilters.sharesRange">
+                                            <input type="checkbox" name="range" (change)="clearFilter($event)" [(ngModel)]="showFilters.sharesRange">
                                             <span class="checkbox-material">
                                         <span class="check"></span></span>
                                             Range of shares

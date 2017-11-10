@@ -49,6 +49,25 @@ export class ExportShareholdersComponent implements OnInit{
         }
     }
 
+    clearFilter($event) {
+        if(!$event.target.checked) {
+            switch($event.target.name) {
+                case 'name':
+                    this.exportConfig.name = '';
+                    break;
+                case 'number-shares':
+                    this.exportConfig.shares = '';
+                    break;
+                case 'range':
+                    this.exportConfig.sharesRange.min = null;
+                    this.exportConfig.sharesRange.max = null;
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
     downloadList(){
         console.log(this.exportConfig);
         this.shareholderApi.generatelist(this.companyId, this.exportConfig)
