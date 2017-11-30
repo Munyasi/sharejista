@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Shareholder } from '../../../shared/sdk/models/index';
-import { ShareholderApi,UserAccountApi } from '../../../shared/sdk/services/index';
+import { ShareholderApi,UserAccountApi, ShareTransferApi } from '../../../shared/sdk/services/index';
 import { BASE_URL, API_VERSION } from '../../../shared/base.url';
 import {StorageBrowser} from '../../../shared/sdk/index';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
     moduleId: module.id,
     styleUrls: ['shareholder.component.css', '../../home/home.component.css'],
     templateUrl: 'shareholder.component.html',
-    providers: [ShareholderApi,UserAccountApi,StorageBrowser]
+    providers: [ShareholderApi,UserAccountApi,StorageBrowser, ShareTransferApi]
 })
 
 export class ShareholderComponent implements OnInit{
@@ -30,6 +30,7 @@ export class ShareholderComponent implements OnInit{
     constructor(private shareholdersService:ShareholderApi,
                 private toastr: ToastsManager,
                 private route: ActivatedRoute,
+                private shareTransferApi: ShareTransferApi,
                 private user:UserAccountApi,
                 private storageBrowser: StorageBrowser){
         this.shareholder = new Shareholder();
@@ -88,5 +89,11 @@ export class ShareholderComponent implements OnInit{
         this.p = page;
         this.transfers = this.getTransfers(page);
     }
+
+  generateCertificate(id) {
+    this.shareTransferApi.generateShareCertificate(id).subscribe( res => {
+      window.location.href = `${BASE_URL}/${API_VERSION}/outputs/share_certificates/download/${res.data.path}`;
+    });
+  }
 
 }

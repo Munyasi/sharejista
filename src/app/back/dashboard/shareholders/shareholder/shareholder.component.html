@@ -119,6 +119,7 @@
                                         <th>Transaction type</th>
                                         <th>Type of shares</th>
                                         <th>Number of Shares</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,8 +129,9 @@
                                         <td *ngIf="st.transferer_type!='company'">{{st.transferee.name}}</td>
                                         <td *ngIf="st.transferer_type!='company'">Transfer</td>
                                         <td>{{st.sharetype.name}}</td>
-                                        <td *ngIf="st.transferer_type=='company'">+{{st.number_of_shares|number}}</td>
+                                        <td *ngIf="st.transferer_type=='company'">{{st.number_of_shares|number}}</td>
                                         <td *ngIf="st.transferer_type!='company'">{{(shareholder.id!=st.transferer_id)?'+':'-'}}{{st.number_of_shares|number}}</td>
+                                        <td *ngIf="shareholder.id!=st.transferer_id"><button class="btn btn-primary btn-sm" (click)="generateCertificate(st.id)">Get certificate</button></td>
                                     </tr>
                                     <tr *ngIf="shareholder['transfers']?.length < 1">
                                         <td colspan="6" class="empty-list-td">

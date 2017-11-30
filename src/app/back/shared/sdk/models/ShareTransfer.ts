@@ -23,6 +23,8 @@ export interface ShareTransferInterface {
   "payment_type"?: string;
   "initiated_by"?: number;
   "approved_by"?: number;
+  "dated"?: Date;
+  "share_certificate_no"?: number;
   "id"?: number;
   "createdAt": Date;
   "updatedAt": Date;
@@ -49,6 +51,8 @@ export class ShareTransfer implements ShareTransferInterface {
   "payment_type": string;
   "initiated_by": number;
   "approved_by": number;
+  "dated": Date;
+  "share_certificate_no": number;
   "id": number;
   "createdAt": Date;
   "updatedAt": Date;
@@ -158,6 +162,14 @@ export class ShareTransfer implements ShareTransferInterface {
         },
         "approved_by": {
           name: 'approved_by',
+          type: 'number'
+        },
+        "dated": {
+          name: 'dated',
+          type: 'Date'
+        },
+        "share_certificate_no": {
+          name: 'share_certificate_no',
           type: 'number'
         },
         "id": {
