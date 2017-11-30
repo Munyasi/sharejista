@@ -19,6 +19,7 @@ import { SharePayment } from '../../models/SharePayment';
 import { CR20 } from '../../models/CR20';
 import { AnnualReturn } from '../../models/AnnualReturn';
 import { UserAccount } from '../../models/UserAccount';
+import { Document } from '../../models/Document';
 
 export interface Models { [name: string]: any }
 
@@ -45,6 +46,7 @@ export class SDKModels {
     CR20: CR20,
     AnnualReturn: AnnualReturn,
     UserAccount: UserAccount,
+    Document: Document,
     
   };
 

@@ -1,0 +1,78 @@
+<div class="card-content">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header" data-background-color="red">
+        <h4 class="title">{{company_name}}</h4>
+        <p>Import shareholders list</p>
+      </div>
+      <div class="card-content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="hero">
+              <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput">
+                <p>
+                  Drag a file here or
+                  <label class="upload-button">
+                    <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+                    browse
+                  </label>
+                  to upload.
+                </p>
+              </div>
+            </div>
+            <div class="data-progress">
+              <div class="upload-item" *ngFor="let f of files; let i = index;">
+            <span class="filename">
+              <span>{{ f.name }} ({{ f.id }}) - {{ f.progress?.data?.percentage }}%</span>
+              <span>uploading with {{ f.progress?.data?.speedHuman }}</span>
+              <span>ETA {{ f.progress?.data?.etaHuman }}</span>
+            </span>
+                <div class="progress">
+                  <span class="bar" [style.width]="f?.progress?.data?.percentage + '%'"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="outerContainer">
+              <div *ngIf="uploadedFile" class="innerContainer">
+                <span>{{uploadedFile['originalFilename']}}</span>
+                <br>
+                <span>{{uploadedFile['size']/1000}} kb</span>
+                <br>
+                <div class="process-button">
+                  <button class="style_prevu_kit" (click)="cancelUpload()" style="background-color:#f8b334;">Cancel upload</button>
+                  <button class="style_prevu_kit" (click)="processList()" style="background-color:#97bf0d;">Process list</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-header" data-background-color="red">
+        <h4 class="title">Actions</h4>
+      </div>
+      <div class="card-content table-responsive table-full-width">
+        <table class="table cp-action-table">
+          <tbody>
+          <tr>
+            <td>
+              <a routerLink="/en/dashboard/shareholders" class="btn btn-primary cp-action-btn">
+                Go to shareholders list
+                <i class="material-icons">arrow_forward</i>
+              </a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

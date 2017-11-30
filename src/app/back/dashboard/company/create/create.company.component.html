@@ -96,15 +96,10 @@
                                                 <div class="form-group label-static"
                                                      ngClass="{has-errors: avg_turn_over.errors }">
                                                     <label for="avg_turn_over" class="control-label">Average Turn Over
-                                                        *</label>
+                                                        </label>
                                                     <input id="avg_turn_over" type="number" class="form-control"
                                                            name="avg_turn_over" required
                                                            [(ngModel)]="company.avg_turn_over" #avg_turn_over="ngModel">
-                                                    <div *ngIf="avg_turn_over.errors && (avg_turn_over.dirty || avg_turn_over.touched)">
-                                                        <label [hidden]="!avg_turn_over.errors.required"
-                                                               class="label error-message">Average turn over is a
-                                                            required</label>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

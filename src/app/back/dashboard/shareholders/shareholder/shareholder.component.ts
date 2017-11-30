@@ -41,7 +41,6 @@ export class ShareholderComponent implements OnInit{
     }
 
     ngOnInit(){
-        console.log(this.user.getCurrentToken());
         if(this.storageBrowser.get('company_id')){
             this.company_id = this.storageBrowser.get('company_id');
             this.company_name = this.storageBrowser.get('company_name');

@@ -18,5 +18,6 @@ export * from './SharePayment';
 export * from './CR20';
 export * from './AnnualReturn';
 export * from './UserAccount';
+export * from './Document';
 export * from './BaseModels';
 export * from './FireLoopRef';

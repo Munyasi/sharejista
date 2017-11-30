@@ -9,7 +9,7 @@ declare var Object: any;
 export interface CompanyInterface {
   "company_name": string;
   "registration_no": string;
-  "avg_turn_over": number;
+  "avg_turn_over"?: number;
   "primary_activity": string;
   "phone_numbers": string;
   "email_address": string;

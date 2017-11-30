@@ -6,6 +6,7 @@ import {HomeComponent} from './dashboard/home/home.component';
 import {CompanyComponent} from './dashboard/company/company.component';
 import {OfficersComponent} from './dashboard/officers/officers.component';
 import {ShareholdersComponent} from './dashboard/shareholders/shareholders.component';
+import { ShareholdersUploadComponent } from './dashboard/shareholders/shareholders-upload/shareholders-upload.component'
 import {ShareClassesComponent} from './dashboard/shareclasses/shareclasses.component';
 import {WizardComponent} from './wizard/wizard.component';
 import {CreateShareholderComponent} from './dashboard/shareholders/create/create.shareholders.component';
@@ -71,6 +72,7 @@ export const routes: Routes = [
             {path: 'shareallotment', component: ShareAllotmentComponent},
             {path: 'sharetransfer', component: ShareTransferComponent},
             {path: 'shareholders/add', component: CreateShareholderComponent},
+            {path: 'shareholders/upload', component: ShareholdersUploadComponent},
             {path: 'shareholders/:id', component: ShareholderComponent},
             {path: 'shareholders/:id/edit', component: CreateShareholderComponent},
             {path: 'officers/add', component: CreateOfficerComponent},
