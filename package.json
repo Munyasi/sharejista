@@ -31,10 +31,10 @@
     "ng2-order-pipe": "^0.1.5",
     "ng2-toastr": "^4.1.2",
     "ngx-pagination": "^3.0.1",
+    "ngx-progressbar": "^2.0.3",
+    "ngx-typeahead": "0.0.3",
     "underscore": "^1.8.3",
     "xlsx": "^0.11.5",
-    "ngx-typeahead": "0.0.3",
-    "ngx-progressbar": "^2.0.3",
     "zone.js": "^0.8.16"
   },
   "devDependencies": {

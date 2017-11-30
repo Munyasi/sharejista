@@ -10,12 +10,15 @@ import { NgxTypeaheadModule } from 'ngx-typeahead';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { FooterModule} from './shared/footer/footer.module';
 
+import { NgUploaderModule } from './shared/ngx-uploader/module/ngx-uploader.module';
+
 import {EnComponent} from './en.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HomeComponent} from './dashboard/home/home.component';
 import {CompanyComponent} from './dashboard/company/company.component';
 import {OfficersComponent} from './dashboard/officers/officers.component';
 import {ShareholdersComponent} from './dashboard/shareholders/shareholders.component';
+import { ShareholdersUploadComponent } from './dashboard/shareholders/shareholders-upload/shareholders-upload.component';
 import {ShareClassesComponent} from './dashboard/shareclasses/shareclasses.component';
 import {WizardComponent} from './wizard/wizard.component';
 import {CreateShareholderComponent} from './dashboard/shareholders/create/create.shareholders.component';
@@ -55,6 +58,7 @@ import { EnRoutingModule } from './en.routes';
         CommonModule, EnRoutingModule, FormsModule, ReactiveFormsModule, MyDatePickerModule,
         NavbarModule,
         FooterModule,
+        NgUploaderModule,
         Ng2OrderModule,
         NgxPaginationModule,
         NgxTypeaheadModule],
@@ -65,6 +69,7 @@ import { EnRoutingModule } from './en.routes';
         CompanyComponent,
         OfficersComponent,
         ShareholdersComponent,
+        ShareholdersUploadComponent,
         ShareClassesComponent,
         WizardComponent,
         CreateShareholderComponent,

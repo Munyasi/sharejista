@@ -6292,3 +6292,17 @@ footer .btn {
 label.clear-filters {
     color: #E44141 !important;
 }
+
+ .outerContainer {
+   display: table;
+   height: 100%; /* height of parent */
+   overflow: hidden;
+   width: 100%;
+ }
+ .outerContainer .innerContainer {
+   display: table-cell;
+   vertical-align: middle;
+   width: 100%;
+   margin: 0 auto;
+   text-align: center;
+ }
