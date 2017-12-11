@@ -83,7 +83,7 @@ export class ShareholdersUploadComponent implements OnInit {
     this.document.removeFile(this.uploadedFile.container,this.uploadedFile.name)
         .subscribe((res)=>{
           this.uploadedFile = null;
-          this.toastr.success('Bulk upload process cancelled','Process Cancelled');
+          this.toastr.warning('Bulk upload process cancelled','Process Cancelled');
         })
   }
 
@@ -93,7 +93,7 @@ export class ShareholdersUploadComponent implements OnInit {
       this.shareholders.bulkUpload(this.uploadedFile)
           .subscribe((res)=>{
             this.uploadedFile = null;
-            this.toastr.warning('Bulk upload process cancelled');
+            this.toastr.success('Records added successfully');
           })
     }else{
       this.toastr.error('No company selected.','Error');
