@@ -58,10 +58,8 @@ export class ShareholderComponent implements OnInit{
                 .subscribe((shareholder: Shareholder) => {
                         this.shareholder = shareholder;
                         this.totalTransfers = this.shareholder['transfers'].length;
-                        console.log( this.totalTransfers );
                         this.all_transfers = this.shareholder['transfers'];
                         this.transfers = this.getTransfers(this.p);
-                        console.log(this.transfers);
                 },
                 (error) => {
                     this.toastr.error('Something went wrong while fetching shareholders. Please reload to retry.');

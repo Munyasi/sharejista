@@ -19,6 +19,7 @@ export class ShareholdersUploadComponent implements OnInit {
   dragOver: boolean;
   options: UploaderOptions;
   uploadedFile: any;
+  errors: any;
 
   constructor(private storageBrowser: StorageBrowser,private toastr: ToastsManager, protected document: DocumentApi, protected shareholders: ShareholderApi) {
     this.options = { concurrency: 1, allowedContentTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel'] };
@@ -63,10 +64,15 @@ export class ShareholdersUploadComponent implements OnInit {
       this.dragOver = false;
     } else if (output.type === 'rejected' && typeof output.file !== 'undefined') {
       this.toastr.error(output.file.name + ' rejected','Error');
-      // console.log(output.file.name + ' rejected');
     } else if (output.type === 'done') {
       this.files.forEach(file => {
-        this.uploadedFile = file.response.result.files.file[0];
+       if(file.response.errors){
+         this.errors  = file.response.errors;
+       }else{
+         this.uploadedFile = file.response.result.files.file[0];
+         this.uploadedFile.temp_id = file.response.sheet_data.id;
+         this.uploadedFile.temp_key = file.response.sheet_data.temp_key;
+       }
       });
     }
 
