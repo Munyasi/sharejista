@@ -8,14 +8,19 @@ declare var Object: any;
 export interface ShareholderInterface {
   "type": string;
   "name": string;
-  "email_address": string;
-  "phone_number": string;
-  "id_reg_number": string;
+  "email_address"?: string;
+  "phone_number"?: string;
+  "id_reg_number"?: string;
   "appointment_date"?: Date;
-  "postal_code": string;
-  "box": string;
-  "town": string;
+  "postal_code"?: string;
+  "box"?: string;
+  "town"?: string;
+  "county"?: string;
+  "constituency"?: string;
+  "location"?: string;
+  "sublocation"?: string;
   "profile_photo"?: string;
+  "group_members"?: string;
   "id"?: number;
   "company_id"?: number;
   "createdAt": Date;
@@ -34,7 +39,12 @@ export class Shareholder implements ShareholderInterface {
   "postal_code": string;
   "box": string;
   "town": string;
+  "county": string;
+  "constituency": string;
+  "location": string;
+  "sublocation": string;
   "profile_photo": string;
+  "group_members": string;
   "id": number;
   "company_id": number;
   "createdAt": Date;
@@ -109,8 +119,28 @@ export class Shareholder implements ShareholderInterface {
           name: 'town',
           type: 'string'
         },
+        "county": {
+          name: 'county',
+          type: 'string'
+        },
+        "constituency": {
+          name: 'constituency',
+          type: 'string'
+        },
+        "location": {
+          name: 'location',
+          type: 'string'
+        },
+        "sublocation": {
+          name: 'sublocation',
+          type: 'string'
+        },
         "profile_photo": {
           name: 'profile_photo',
+          type: 'string'
+        },
+        "group_members": {
+          name: 'group_members',
           type: 'string'
         },
         "id": {

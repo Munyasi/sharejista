@@ -10,22 +10,15 @@ export interface ShareTransferInterface {
   "transferer_type"?: string;
   "transferee_id": number;
   "company_id": number;
-  "number_of_shares": number;
   "par_value": number;
   "share_price": number;
-  "payment_status": string;
-  "share_type_id": number;
-  "approved"?: boolean;
-  "cash_payable"?: number;
-  "non_cash_payable"?: number;
   "total_cash_amount": number;
   "total_non_cash_amount": number;
-  "payment_type"?: string;
   "initiated_by"?: number;
-  "approved_by"?: number;
   "dated"?: Date;
-  "share_certificate_no"?: number;
+  "comment"?: any;
   "id"?: number;
+  "share_type_id"?: number;
   "createdAt": Date;
   "updatedAt": Date;
   sharetype?: ShareType;
@@ -38,22 +31,15 @@ export class ShareTransfer implements ShareTransferInterface {
   "transferer_type": string;
   "transferee_id": number;
   "company_id": number;
-  "number_of_shares": number;
   "par_value": number;
   "share_price": number;
-  "payment_status": string;
-  "share_type_id": number;
-  "approved": boolean;
-  "cash_payable": number;
-  "non_cash_payable": number;
   "total_cash_amount": number;
   "total_non_cash_amount": number;
-  "payment_type": string;
   "initiated_by": number;
-  "approved_by": number;
   "dated": Date;
-  "share_certificate_no": number;
+  "comment": any;
   "id": number;
+  "share_type_id": number;
   "createdAt": Date;
   "updatedAt": Date;
   sharetype: ShareType;
@@ -107,10 +93,6 @@ export class ShareTransfer implements ShareTransferInterface {
           name: 'company_id',
           type: 'number'
         },
-        "number_of_shares": {
-          name: 'number_of_shares',
-          type: 'number'
-        },
         "par_value": {
           name: 'par_value',
           type: 'number'
@@ -118,29 +100,6 @@ export class ShareTransfer implements ShareTransferInterface {
         "share_price": {
           name: 'share_price',
           type: 'number'
-        },
-        "payment_status": {
-          name: 'payment_status',
-          type: 'string'
-        },
-        "share_type_id": {
-          name: 'share_type_id',
-          type: 'number'
-        },
-        "approved": {
-          name: 'approved',
-          type: 'boolean',
-          default: false
-        },
-        "cash_payable": {
-          name: 'cash_payable',
-          type: 'number',
-          default: 0
-        },
-        "non_cash_payable": {
-          name: 'non_cash_payable',
-          type: 'number',
-          default: 0
         },
         "total_cash_amount": {
           name: 'total_cash_amount',
@@ -152,28 +111,24 @@ export class ShareTransfer implements ShareTransferInterface {
           type: 'number',
           default: 0
         },
-        "payment_type": {
-          name: 'payment_type',
-          type: 'string'
-        },
         "initiated_by": {
           name: 'initiated_by',
-          type: 'number'
-        },
-        "approved_by": {
-          name: 'approved_by',
           type: 'number'
         },
         "dated": {
           name: 'dated',
           type: 'Date'
         },
-        "share_certificate_no": {
-          name: 'share_certificate_no',
-          type: 'number'
+        "comment": {
+          name: 'comment',
+          type: 'any'
         },
         "id": {
           name: 'id',
+          type: 'number'
+        },
+        "share_type_id": {
+          name: 'share_type_id',
           type: 'number'
         },
         "createdAt": {

@@ -20,6 +20,7 @@ import { CR20 } from '../../models/CR20';
 import { AnnualReturn } from '../../models/AnnualReturn';
 import { UserAccount } from '../../models/UserAccount';
 import { Document } from '../../models/Document';
+import { Temp } from '../../models/Temp';
 
 export interface Models { [name: string]: any }
 
@@ -47,6 +48,7 @@ export class SDKModels {
     AnnualReturn: AnnualReturn,
     UserAccount: UserAccount,
     Document: Document,
+    Temp: Temp,
     
   };
 

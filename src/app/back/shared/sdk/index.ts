@@ -68,6 +68,7 @@ import { CR20Api } from './services/custom/CR20';
 import { AnnualReturnApi } from './services/custom/AnnualReturn';
 import { UserAccountApi } from './services/custom/UserAccount';
 import { DocumentApi } from './services/custom/Document';
+import { TempApi } from './services/custom/Temp';
 /**
 * @module SDKBrowserModule
 * @description
@@ -119,6 +120,7 @@ export class SDKBrowserModule {
         AnnualReturnApi,
         UserAccountApi,
         DocumentApi,
+        TempApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

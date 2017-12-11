@@ -19,6 +19,11 @@
                                 Allotments & Transfers
                             </a>
                         </li>
+                        <li [ngClass]="{'active':tab_num=='tab4'}" (click)="showTab(4)">
+                            <a href="#tab4" data-toggle="tab" aria-expanded="false">
+                                Shares Certificates
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -142,6 +147,36 @@
                                 </table>
                                 <div class="pagination-container">
                                     <pagination-controls class="my-pagination" (pageChange)="pageChanged($event)"
+                                                         previousLabel="Prev" nextLabel="Next">
+                                    </pagination-controls>
+                                </div>
+                            </div>
+
+                            <div class="ul-company tab3" *ngIf="tab_num=='tab4'">
+                                <table class="table">
+                                    <thead class="text-danger">
+                                    <tr *ngIf="shareEntries?.length > 0">
+                                        <th>Type</th>
+                                        <th>Number of shares</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let se of shareEntries | paginate: { itemsPerPage: sharesPerPage, currentPage: sharesPage, totalItems: totalShareEntries }">
+                                        <td>{{assignType(se.action)}}</td>
+                                        <td>{{se.number_of_shares}}</td>
+                                        <td><button class="btn btn-primary btn-sm" (click)="generateCertificate(se.id)">Get certificate</button></td>
+                                    </tr>
+                                    <tr *ngIf="shareEntries?.length < 1">
+                                        <td colspan="6" class="empty-list-td">
+                                            <p>No share entries available for this shareholder.</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination-container">
+                                    <pagination-controls class="my-pagination" (pageChange)="pageChangedShareEntries($event)"
                                                          previousLabel="Prev" nextLabel="Next">
                                     </pagination-controls>
                                 </div>

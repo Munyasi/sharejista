@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenerateCR6Component } from './generate.component';
+import {GenerateCR20Component} from './generate.component';
 
 describe('GenerateCR6Component', () => {
-  let component: GenerateCR6Component;
-  let fixture: ComponentFixture<GenerateCR6Component>;
+  let component: GenerateCR20Component;
+  let fixture: ComponentFixture<GenerateCR20Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GenerateCR6Component ]
+      declarations: [ GenerateCR20Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GenerateCR6Component);
+    fixture = TestBed.createComponent(GenerateCR20Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

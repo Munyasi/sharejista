@@ -19,5 +19,6 @@ export * from './CR20';
 export * from './AnnualReturn';
 export * from './UserAccount';
 export * from './Document';
+export * from './Temp';
 export * from './BaseModels';
 export * from './FireLoopRef';
