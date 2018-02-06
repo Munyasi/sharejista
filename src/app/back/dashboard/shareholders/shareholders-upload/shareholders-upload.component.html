@@ -13,7 +13,7 @@
                 <p>
                   Drag a file here or
                   <label class="upload-button">
-                    <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+                    <input #myInput type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
                     browse
                   </label>
                   to upload.
