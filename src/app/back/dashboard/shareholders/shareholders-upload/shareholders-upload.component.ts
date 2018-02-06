@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {StorageBrowser, DocumentApi, ShareholderApi} from '../../../shared/sdk/index';
 import { UploadOutput, UploadInput, humanizeBytes, UploadFile, UploaderOptions, UploadStatus } from '../../../shared/ngx-uploader';
@@ -11,6 +12,8 @@ import {BASE_URL, API_VERSION } from '../../../base.url';
   providers: [StorageBrowser, DocumentApi, ShareholderApi]
 })
 export class ShareholdersUploadComponent implements OnInit {
+  @ViewChild('myInput')
+  myInputVariable: any;
   company_name: string;
   company_id: number;
   files: UploadFile[];
@@ -46,9 +49,10 @@ export class ShareholdersUploadComponent implements OnInit {
         method: 'POST',
         data: { foo: 'bar' }
       };
-
       this.uploadInput.emit(event)
-
+    }else if (output.type === 'start') {
+      this.errors = false;
+      this.uploadedFile = false;
     } else if (output.type === 'addedToQueue'  && typeof output.file !== 'undefined') {
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
@@ -65,19 +69,27 @@ export class ShareholdersUploadComponent implements OnInit {
     } else if (output.type === 'rejected' && typeof output.file !== 'undefined') {
       this.toastr.error(output.file.name + ' rejected','Error');
     } else if (output.type === 'done') {
-      this.files.forEach(file => {
-       if(file.response.errors){
-         this.errors  = file.response.errors;
-       }else{
-         this.uploadedFile = file.response.result.files.file[0];
-         this.uploadedFile.temp_id = file.response.sheet_data.id;
-         this.uploadedFile.temp_key = file.response.sheet_data.temp_key;
-       }
-      });
+        this.files.forEach(file => {
+          if(file.response){
+            if(file.response.errors){
+              this.errors  = file.response.errors;
+            }else if(file.response.error){
+              this.errors = ["Error "+file.response.error.statusCode+" occurred"];
+            }else{
+              this.uploadedFile = file.response.result.files.file[0];
+              this.uploadedFile.temp_id = file.response.sheet_data.id;
+              this.uploadedFile.temp_key = file.response.sheet_data.temp_key;
+            }
+          }else{
+            this.errors = ["An error occurred"];
+          }
+        });
+        this.myInputVariable.nativeElement.value = "";
     }
-
     this.files = this.files.filter(file => file.progress.status !== UploadStatus.Done);
   }
+
+
 
   cancelUpload(): void {
     this.document.removeFile(this.uploadedFile.container,this.uploadedFile.name)
@@ -109,5 +121,10 @@ export class ShareholdersUploadComponent implements OnInit {
 
   removeAllFiles(): void {
     this.uploadInput.emit({ type: 'removeAll' });
+  }
+
+  onChange(event:any):void{
+    event.srcElement.value = "";
+
   }
 }
