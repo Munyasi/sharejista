@@ -43,11 +43,12 @@ export class ShareholdersUploadComponent implements OnInit {
 
   onUploadOutput(output: UploadOutput): void {
     if (output.type === 'allAddedToQueue') {
+      let company_id = this.company_id;
       const event: UploadInput = {
         type: 'uploadAll',
         url: BASE_URL + '/' + API_VERSION + '/' + 'documents/uploads/upload',
         method: 'POST',
-        data: { foo: 'bar' }
+        data: { company_id: company_id.toString() }
       };
       this.uploadInput.emit(event)
     }else if (output.type === 'start') {
@@ -126,5 +127,9 @@ export class ShareholdersUploadComponent implements OnInit {
   onChange(event:any):void{
     event.srcElement.value = "";
 
+  }
+
+  dismissErrorBox(){
+    this.errors = false;
   }
 }

@@ -15,7 +15,7 @@ import { FooterModule } from './back/shared/footer/footer.module';
 
 // Routing Module
 import { AppRoutingModule } from './app.routes';
-
+import { CanActivateViaAuthGuard } from './back/shared/guards/canactivate.guard';
 import { AppComponent } from './app.component';
 
 
@@ -37,7 +37,8 @@ import { AppComponent } from './app.component';
   ],
   providers: [
       { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
-      {provide: LocationStrategy, useClass: HashLocationStrategy}
+      {provide: LocationStrategy, useClass: HashLocationStrategy},
+      CanActivateViaAuthGuard
       ],
   bootstrap: [AppComponent]
 })

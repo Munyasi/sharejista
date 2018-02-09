@@ -8,7 +8,7 @@ import {
 
 declare var Object: any;
 export interface SharesInterface {
-  "entry_no": number;
+  "certificate_no": number;
   "number_of_shares": number;
   "action": string;
   "status": string;
@@ -27,7 +27,7 @@ export interface SharesInterface {
 }
 
 export class Shares implements SharesInterface {
-  "entry_no": number;
+  "certificate_no": number;
   "number_of_shares": number;
   "action": string;
   "status": string;
@@ -75,8 +75,8 @@ export class Shares implements SharesInterface {
       plural: 'shares',
       path: 'shares',
       properties: {
-        "entry_no": {
-          name: 'entry_no',
+        "certificate_no": {
+          name: 'certificate_no',
           type: 'number'
         },
         "number_of_shares": {

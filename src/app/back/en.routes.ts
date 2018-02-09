@@ -36,13 +36,16 @@ import {CR20ListComponent} from './dashboard/CR20/cr20.component';
 import {GenerateCR20Component} from './dashboard/CR20/generate/generate.component';
 import {AnnualReturnsListComponent} from './dashboard/annual-returns-list/annual-returns-list.component';
 import {GenerateAnnualReturnComponent} from './dashboard/annual-returns-list/generate/generate.component';
-
+import { CanActivateViaAuthGuard } from './shared/guards/canactivate.guard';
 
 export const routes: Routes = [
-    {path: '', component: EnComponent,
+    {
+        path: '', component: EnComponent,
+        canActivateChild: [CanActivateViaAuthGuard],
         children: [
             {
                 path: 'dashboard', component: DashboardComponent,
+                canActivateChild: [CanActivateViaAuthGuard],
                 children: [
                     {path: 'home', component: HomeComponent},
                     {path: ':id/home', component: HomeComponent},

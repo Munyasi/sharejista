@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
                 private user: UserAccountApi) {
     }
     ngOnInit() {
-        console.log(this.user.getCurrentToken());
         this.route.params.subscribe(params => {
             if (params['id']) {
                 this.getCompanyById(params['id']);

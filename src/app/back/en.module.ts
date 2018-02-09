@@ -51,6 +51,7 @@ import {GenerateAnnualReturnComponent} from './dashboard/annual-returns-list/gen
 
 // Routing Module
 import { EnRoutingModule } from './en.routes';
+import { CanActivateViaAuthGuard } from './shared/guards/canactivate.guard';
 
 
 @NgModule({
@@ -100,7 +101,7 @@ import { EnRoutingModule } from './en.routes';
         AnnualReturnsListComponent,
         GenerateAnnualReturnComponent
     ],
-    providers: []
+    providers: [CanActivateViaAuthGuard]
 })
 
 export class EnModule { }

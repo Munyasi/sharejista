@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CanActivateViaAuthGuard } from './back/shared/guards/canactivate.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -9,6 +10,7 @@ export const routes: Routes = [
     },
     {
         path: 'en',
+        canActivate: [CanActivateViaAuthGuard],
         loadChildren: './back/en.module#EnModule'
     }
 ];

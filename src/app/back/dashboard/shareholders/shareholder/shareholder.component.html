@@ -39,6 +39,16 @@
                                 <li class="ul-item">
                                     <div class="row">
                                         <div class="ul-item-title col-sm-3">
+                                            Type
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.type}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
                                             Name
                                         </div>
                                         <div class="col-sm-6">
@@ -49,10 +59,20 @@
                                 <li class="ul-item">
                                     <div class="row">
                                         <div class="ul-item-title col-sm-3">
+                                            Entry Number
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{shareholder.entry_number}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
                                             Email address
                                         </div>
                                         <div class="col-sm-6">
-                                            {{shareholder.email_address}}
+                                            {{shareholder.email_address?shareholder.email_address:'Not available'}}
                                         </div>
                                     </div>
                                 </li>
@@ -69,10 +89,10 @@
                                 <li class="ul-item">
                                     <div class="row">
                                         <div class="ul-item-title col-sm-3">
-                                            Type
+                                            Identification Document
                                         </div>
                                         <div class="col-sm-6">
-                                            {{shareholder.type}}
+                                            {{shareholder.id_type}}: {{shareholder.id_reg_number}}
                                         </div>
                                     </div>
                                 </li>
@@ -83,7 +103,7 @@
                                             Date joined
                                         </div>
                                         <div class="col-sm-6">
-                                            {{shareholder.appointment_date | date:'yMMMd'}}
+                                            {{shareholder.appointment_date?(shareholder.appointment_date | date:'yMMMd'):'Not available'}}
                                         </div>
                                     </div>
                                 </li>
@@ -96,6 +116,20 @@
                                         <div class="col-sm-6">
                                             P.O Box {{shareholder.postal_code}} - {{shareholder.box}}, <br>
                                             {{shareholder.town}}
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="ul-item">
+                                    <div class="row">
+                                        <div class="ul-item-title col-sm-3">
+                                            Physical location
+                                        </div>
+                                        <div class="col-sm-6">
+                                            County : {{shareholder.county?shareholder.county:'Not Available'}} <br>
+                                            Constituency : {{shareholder.constituency?shareholder.constituency:'Not Available'}} <br>
+                                            Location : {{shareholder.location?shareholder.location:'Not Available'}} <br>
+                                            Sub location : {{shareholder.sublocation?shareholder.sublocation:'Not Available'}} <br>
                                         </div>
                                     </div>
                                 </li>

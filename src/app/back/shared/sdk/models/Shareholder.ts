@@ -7,10 +7,12 @@ import {
 declare var Object: any;
 export interface ShareholderInterface {
   "type": string;
+  "entry_number"?: string;
   "name": string;
   "email_address"?: string;
   "phone_number"?: string;
-  "id_reg_number"?: string;
+  "id_type": string;
+  "id_reg_number": string;
   "appointment_date"?: Date;
   "postal_code"?: string;
   "box"?: string;
@@ -31,9 +33,11 @@ export interface ShareholderInterface {
 
 export class Shareholder implements ShareholderInterface {
   "type": string;
+  "entry_number": string;
   "name": string;
   "email_address": string;
   "phone_number": string;
+  "id_type": string;
   "id_reg_number": string;
   "appointment_date": Date;
   "postal_code": string;
@@ -87,6 +91,10 @@ export class Shareholder implements ShareholderInterface {
           name: 'type',
           type: 'string'
         },
+        "entry_number": {
+          name: 'entry_number',
+          type: 'string'
+        },
         "name": {
           name: 'name',
           type: 'string'
@@ -97,6 +105,10 @@ export class Shareholder implements ShareholderInterface {
         },
         "phone_number": {
           name: 'phone_number',
+          type: 'string'
+        },
+        "id_type": {
+          name: 'id_type',
           type: 'string'
         },
         "id_reg_number": {

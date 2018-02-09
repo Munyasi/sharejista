@@ -35,7 +35,7 @@
           </div>
           <div class="col-md-12" *ngIf="errors">
             <div class="alert alert-warning">
-              <button aria-hidden="true" class="close" type="button">×</button>
+              <button aria-hidden="true" (click)="dismissErrorBox()" class="close" type="button">×</button>
               <span *ngFor="let error of errors">{{error}}</span>
             </div>
           </div>
