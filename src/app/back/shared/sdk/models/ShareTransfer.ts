@@ -12,8 +12,11 @@ export interface ShareTransferInterface {
   "company_id": number;
   "par_value": number;
   "share_price": number;
+  "number_of_shares": number;
+  "total_payable_amount": number;
   "total_cash_amount": number;
   "total_non_cash_amount": number;
+  "non_cash_description"?: string;
   "initiated_by"?: number;
   "dated"?: Date;
   "comment"?: any;
@@ -33,8 +36,11 @@ export class ShareTransfer implements ShareTransferInterface {
   "company_id": number;
   "par_value": number;
   "share_price": number;
+  "number_of_shares": number;
+  "total_payable_amount": number;
   "total_cash_amount": number;
   "total_non_cash_amount": number;
+  "non_cash_description": string;
   "initiated_by": number;
   "dated": Date;
   "comment": any;
@@ -101,6 +107,15 @@ export class ShareTransfer implements ShareTransferInterface {
           name: 'share_price',
           type: 'number'
         },
+        "number_of_shares": {
+          name: 'number_of_shares',
+          type: 'number'
+        },
+        "total_payable_amount": {
+          name: 'total_payable_amount',
+          type: 'number',
+          default: 0
+        },
         "total_cash_amount": {
           name: 'total_cash_amount',
           type: 'number',
@@ -110,6 +125,10 @@ export class ShareTransfer implements ShareTransferInterface {
           name: 'total_non_cash_amount',
           type: 'number',
           default: 0
+        },
+        "non_cash_description": {
+          name: 'non_cash_description',
+          type: 'string'
         },
         "initiated_by": {
           name: 'initiated_by',

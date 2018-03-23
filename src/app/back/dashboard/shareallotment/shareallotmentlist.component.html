@@ -24,19 +24,18 @@
                         <th>To</th>
                         <th>Type of shares</th>
                         <th>Number of Shares</th>
-                        <th>Status</th>
+                        <th>Share price</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let st of shareTransfers | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
-                        <td>{{st.transferer_type=='company'?'Current Company':st.transferer.name}}</td>
-                        <td>{{st.transferee.name }}</td>
+                        <td>{{st.transferer_type=='company'?'Current Company':st.transferer.name|titlecase}}</td>
+                        <td>{{st.transferee.name|titlecase }}</td>
                         <td>{{st.sharetype.name}}</td>
                         <td>{{st.number_of_shares}}</td>
                         <td>
-                            <span class="label label-active share-status" *ngIf="st.approved">Approved</span>
-                            <span class="label label-inactive share-status" *ngIf="!st.approved">Pending</span>
+                            {{st.share_price|number:'1.2-2'}}
                         </td>
                         <td>
                             <div class="dropdown">
@@ -45,8 +44,9 @@
                                     &nbsp;<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu menu-extended">
-                                    <li><a class="pointer" (click)="approveTransfer(st.id,st.transferer_type,1)" >Approve</a></li>
-                                    <li><a class="pointer" (click)="approveTransfer(st.id,st.transferer_type,0)" >Reject</a></li>
+                                    <li>
+                                        <a routerLink="/en/shareholders/{{st.transferee_id}}">View shareholder</a>
+                                    </li>
                                 </ul>
                             </div>
                         </td>

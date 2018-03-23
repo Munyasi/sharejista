@@ -23,7 +23,6 @@
                                     <p>Fill details to transfer shares</p>
                                 </div>
                                 <div class="card-content">
-                                    <span>*&nbsp;Required field</span>
                                     <div class="tab1" *ngIf="tab_num=='tab1'">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -87,6 +86,25 @@
                                         </div>
                                     </div>
                                     <div class="tab2" *ngIf="tab_num=='tab2'">
+                                        <div class="row share-summary">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span>Share Class:</span> {{selected_share_type}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>Par Value:</span> {{p_value| number:'1.2-2'}}
+                                                </div>
+                                            </div>
+
+                                           <div class="row">
+                                               <div class="col-md-6">
+                                                   <span>Number of Shares:</span> {{sharetransfer.number_of_shares}}
+                                               </div>
+                                               <div class="col-md-6">
+                                                   <span>Payable Amount:</span> {{(sharetransfer.number_of_shares*(sharetransfer.share_price||0)||0)|number:'1.2-2'}}
+                                               </div>
+                                           </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group label-static"
@@ -94,7 +112,7 @@
                                                     <label for="payment_method" class="control-label">Payment Method *</label>
                                                     <select id="payment_method" class="form-control"
                                                             name="payment_method" required
-                                                            [(ngModel)]="sharePayment.payment_method" (change)="pdRequired(sharePayment.payment_method)" #payment_method="ngModel">
+                                                            [(ngModel)]="sharetransfer['payment_method']" (change)="pdRequired(sharetransfer['payment_method'])" #payment_method="ngModel">
                                                         <option value="Cash">Cash Payment</option>
                                                         <option value="NonCash">Non-Cash Payment</option>
                                                         <option value="Multiple">Multiple Payments</option>
@@ -109,11 +127,11 @@
                                                 <div class="form-group label-static"
                                                      ngClass="{has-errors: share_type_id.errors }">
                                                     <label for="payment_status" class="control-label">Payment Status *</label>
-                                                    <select id="payment_status" class="form-control"
+                                                    <select readonly="readonly" id="payment_status" class="form-control"
                                                             name="payment_status" required
-                                                            [(ngModel)]="sharetransfer.payment_status" #payment_status="ngModel">
+                                                            [(ngModel)]="sharetransfer['payment_status']" #payment_status="ngModel">
                                                         <option value="Full">Full</option>
-                                                        <option value="Partial">Partial</option>
+                                                        <!--<option value="Partial">Partial</option>-->
                                                     </select>
                                                     <div *ngIf="payment_status.errors && (payment_status.dirty || payment_status.touched)">
                                                         <label [hidden]="!payment_status.errors.required"
@@ -158,7 +176,7 @@
                                                     <label for="cash_payable" class="control-label">Amount payable (Cash) *</label>
                                                     <input id="cash_payable" class="form-control"
                                                            name="cash_payable" required
-                                                           [(ngModel)]="sharePayment.cash_payable" #cash_payable="ngModel">
+                                                           [(ngModel)]="sharetransfer['cash_payable']" #cash_payable="ngModel">
                                                     <div *ngIf="cash_payable.errors && (cash_payable.dirty || cash_payable.touched)">
                                                         <label [hidden]="!cash_payable.errors.required"
                                                                class="label error-message">Add cash payable</label>
@@ -171,7 +189,7 @@
                                                     <label for="cash_amount" class="control-label">Amount paid (Cash) *</label>
                                                     <input id="cash_amount" class="form-control"
                                                               name="cash_amount" required
-                                                              [(ngModel)]="sharePayment.cash_amount" #cash_amount="ngModel">
+                                                              [(ngModel)]="sharetransfer.total_cash_amount" #cash_amount="ngModel">
                                                     <div *ngIf="cash_amount.errors && (cash_amount.dirty || cash_amount.touched)">
                                                         <label [hidden]="!cash_amount.errors.required"
                                                                class="label error-message">Add cash amount</label>
@@ -186,7 +204,7 @@
                                                     <label for="non_cash_payable" class="control-label">Amount payable (Non cash) *</label>
                                                     <input id="non_cash_payable" class="form-control"
                                                            name="non_cash_payable" required
-                                                           [(ngModel)]="sharePayment.non_cash_payable" #non_cash_payable="ngModel">
+                                                           [(ngModel)]="sharetransfer['non_cash_payable']" #non_cash_payable="ngModel">
                                                     <div *ngIf="non_cash_payable.errors && (non_cash_payable.dirty || non_cash_payable.touched)">
                                                         <label [hidden]="!non_cash_payable.errors.required"
                                                                class="label error-message">Add payable non cash amount.</label>
@@ -199,13 +217,16 @@
                                                     <label for="non_cash_amount" class="control-label">Amount paid (Non cash) *</label>
                                                     <input id="non_cash_amount" class="form-control"
                                                            name="non_cash_amount" required
-                                                           [(ngModel)]="sharePayment.non_cash_amount" #non_cash_amount="ngModel">
+                                                           [(ngModel)]="sharetransfer.total_non_cash_amount" #non_cash_amount="ngModel">
                                                     <div *ngIf="non_cash_amount.errors && (non_cash_amount.dirty || non_cash_amount.touched)">
                                                         <label [hidden]="!non_cash_amount.errors.required"
                                                                class="label error-message">Add non cash amount.</label>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-group" *ngIf="(sharetransfer.number_of_shares*(sharetransfer.share_price||0)||0)<((sharetransfer.total_non_cash_amount||0)+(sharetransfer.total_cash_amount||0))">
+                                            <label class=" hidden label error-message">Amount paid should not be less that the payable amount</label>
                                         </div>
                                     </div>
                                 </div>

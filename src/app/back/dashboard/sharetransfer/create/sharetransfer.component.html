@@ -118,11 +118,11 @@
                                                 <div class="form-group label-static"
                                                      ngClass="{has-errors: share_type_id.errors }">
                                                     <label for="payment_status" class="control-label">Payment Status *</label>
-                                                    <select id="payment_status" class="form-control"
+                                                    <select readonly="readonly" id="payment_status" class="form-control"
                                                             name="payment_status" required
                                                             [(ngModel)]="sharetransfer.payment_status" #payment_status="ngModel">
                                                         <option value="Full">Full</option>
-                                                        <option value="Partial">Partial</option>
+                                                        <!--<option value="Partial">Partial</option>-->
                                                     </select>
                                                     <div *ngIf="payment_status.errors && (payment_status.dirty || payment_status.touched)">
                                                         <label [hidden]="!payment_status.errors.required"

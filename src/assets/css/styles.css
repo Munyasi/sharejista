@@ -6306,3 +6306,12 @@ label.clear-filters {
    margin: 0 auto;
    text-align: center;
  }
+
+ .share-summary{
+   background-color: #f1f1f1;
+   padding-left: 20px;
+ }
+
+ .share-summary span {
+   font-weight: bold;
+ }

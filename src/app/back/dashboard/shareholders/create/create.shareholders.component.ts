@@ -80,11 +80,20 @@ export class CreateShareholderComponent implements OnInit{
     createOrUpdate(){
         this.shareholder.company_id = this.storageBrowser.get("company_id");
         this.shareholder.appointment_date = this.myDate["appointment_date"]["formatted"];
-        console.log(this.shareholder);
-        if(this.shareholder.id)
+
+        if(this.shareholder.type==='corporate'){
+            this.shareholder['id_type'] = 'Registration No.'
+        }else if(this.shareholder.type==='individual'){
+            this.shareholder['id_type'] = 'National ID'
+        }
+
+        if(this.shareholder.id){
             this.updatePerson(this.shareholder);
-        else
-            this.createPerson(this.shareholder)
+        }
+        else{
+            this.createPerson(this.shareholder);
+        }
+
     }
 
     createPerson(shareholder: Shareholder){
